@@ -1,6 +1,9 @@
 " Change the default colour scheme to Molokai                                    
 colorscheme molokai
 
+" Set color compatibility for SSH and Debian terminal
+set t_Co=256
+
 " NeoBunble configuration                                                        
 " Required:                                                                      
 set runtimepath^=~/.vim/bundle/neobundle.vim/                                    
