@@ -38,11 +38,10 @@ function main ()                                                                
                 ;;                                                                   
                 6 ) all_cfg
                 echo -e "$(tput setaf 0)$(tput setab 2)\nAPPS INSTALLATION AND CONFIGURATION COMPLETED!$(tput sgr 0)\n"
-		exit 1                
+		        exit 1                
                 ;;
-                0 ) clear                                                            
+                0 ) clear
                 echo -e "$(tput setaf 7)$(tput setab 0)\nThank you for using this script!$(tput sgr 0)\n"
-                exit 1                                                               
                 ;;                                                                   
             esac                                                                     
         else                                                                         
@@ -81,6 +80,7 @@ function vim_cfg ()
     cp -r .vim ~/
     cp .vimrc ~/
     cp .plugins_vim ~/
+    neb_cfg
 }
 
 function tmux_cfg ()
@@ -100,6 +100,93 @@ function sec_cfg ()
 {
     sudo apt-get install openssl-client
     ssh-keygen -b 4096 -t rsa
+}
+
+function neb_cfg ()
+{    
+#!/bin/sh
+# Standalone installer for Unixs
+# Original version is created by shoma2da
+# https://github.com/shoma2da/neobundle_installer
+
+# Installation directory
+BUNDLE_DIR=~/.vim/bundle
+INSTALL_DIR="$BUNDLE_DIR/neobundle.vim"
+echo "$INSTALL_DIR"
+if [ -e "$INSTALL_DIR" ]; then
+  echo "$INSTALL_DIR already exists!"
+fi
+
+NVIM_DIR=~/.config/nvim
+NVIM_BUNDLE_DIR="$NVIM_DIR/bundle"
+NVIM_INSTALL_DIR="$NVIM_BUNDLE_DIR/neobundle.vim"
+echo "$NVIM_INSTALL_DIR"
+if [ -e "$NVIM_INSTALL_DIR" ]; then
+  echo "$NVIM_INSTALL_DIR already exists!"
+fi
+
+if [ -e "$INSTALL_DIR" ] && [ -e "$NVIM_INSTALL_DIR" ]; then
+  exit 1
+fi
+
+# install git
+sudo apt-get install git
+# check git command
+if type git; then
+  : # You have git command. No Problem.
+else
+  echo 'Please install git or update your path to include the git executable!'
+  exit 1
+fi
+
+# make bundle dir and fetch neobundle
+echo "Begin fetching NeoBundle..."
+if ! [ -e "$INSTALL_DIR" ]; then
+  mkdir -p "$BUNDLE_DIR"
+  git clone https://github.com/Shougo/neobundle.vim "$INSTALL_DIR"
+fi
+
+if type nvim > /dev/null 2>&1 && ! [ -e "$NVIM_INSTALL_DIR" ]; then
+  mkdir -p "$NVIM_BUNDLE_DIR"
+  git clone https://github.com/Shougo/neobundle.vim "$NVIM_INSTALL_DIR"
+fi
+
+# write initial setting for .plugins_vim
+echo "" > ~/.plugins_vim
+echo "" >> ~/.plugins_vim 
+echo "NeoBundle Scripts-----------------------------" >> ~/.plugins_vim 
+echo "Required:" >> ~/.plugins_vim
+echo "set runtimepath^=$BUNDLE_DIR/neobundle.vim/" >> ~/.plugins_vim
+echo "" >> ~/.plugins_vim
+echo "Required:" >> ~/.plugins_vim
+echo "call neobundle#begin(expand('$BUNDLE_DIR'))" >> ~/.plugins_vim
+echo "" >> ~/.plugins_vim
+echo "Let NeoBundle manage NeoBundle" >> ~/.plugins_vim
+echo "Required:" >> ~/.plugins_vim
+echo "NeoBundleFetch 'Shougo/neobundle.vim'" >> ~/.plugins_vim
+echo "" >> ~/.plugins_vim
+echo "Add or remove your Bundles here:" >> ~/.plugins_vim
+echo "NeoBundle 'Shougo/neosnippet.vim'" >> ~/.plugins_vim
+echo "NeoBundle 'Shougo/neosnippet-snippets'" >> ~/.plugins_vim
+echo "NeoBundle 'tpope/vim-fugitive'" >> ~/.plugins_vim
+echo "NeoBundle 'ctrlpvim/ctrlp.vim'" >> ~/.plugins_vim
+echo "NeoBundle 'flazz/vim-colorschemes'" >> ~/.plugins_vim
+echo "" >> ~/.plugins_vim
+echo "You can specify revision/branch/tag." >> ~/.plugins_vim
+echo "NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }" >> ~/.plugins_vim
+echo "" >> ~/.plugins_vim
+echo "Required:" >> ~/.plugins_vim
+echo "call neobundle#end()" >> ~/.plugins_vim
+echo "" >> ~/.plugins_vim
+echo "Required:" >> ~/.plugins_vim
+echo "filetype plugin indent on" >> ~/.plugins_vim
+echo "" >> ~/.plugins_vim
+echo "If there are uninstalled bundles found on startup," >> ~/.plugins_vim
+echo "this will conveniently prompt you to install them." >> ~/.plugins_vim
+echo "NeoBundleCheck" >> ~/.plugins_vim
+echo "End NeoBundle Scripts-------------------------" >> ~/.plugins_vim
+echo "" >> ~/.plugins_vim
+echo "colorscheme molokai" >> ~/.plugins_vim
 }
 
 function all_cfg ()
