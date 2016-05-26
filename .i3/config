@@ -143,6 +143,9 @@ bindsym $mod+q exec "i3lock -b -d -c 000000 -n -e -f"
 bindsym $mod+b exec "chromium-browser"
 bindsym $mod+n exec "firefox"
 
+#call spotify
+bindsym $mod+m exec "spotify"
+
 #call hexchat
 bindsym $mod+t exec "hexchat"
 

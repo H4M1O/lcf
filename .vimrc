@@ -16,6 +16,12 @@ vnoremap ; :
 " Remap F2 to show and change between paste and no-past mode under normal
 set pastetoggle=<F2>
 nnoremap <F2> :set invpaste paste?<CR>
+" Copy selected text (ctrl-c)
+vmap <C-c> y
+" Paste clipboard contents (ctrl-v)
+imap <C-v> <Esc>p
+" Cut selected text (ctrl-x)
+vmap <C-x> x
 
 " Highlight the current column every window
 set cursorcolumn

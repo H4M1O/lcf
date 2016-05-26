@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/home/claudio/Documents/GIT/usi/.git/logs'
+let g:netrw_dirhist_2='/home/claudio/Documents/GIT/usi'
+let g:netrw_dirhist_3='/home/claudio/Documents/GIT'
+let g:netrw_dirhist_4='/home/claudio/Documents'
+let g:netrw_dirhist_5='/home/claudio'
+let g:netrw_dirhist_6='/home'
+let g:netrw_dirhist_7='/'
+let g:netrw_dirhist_8='/home/claudio/Documents/GIT/usi'
+let g:netrw_dirhist_9='/home/claudio/.vim'
