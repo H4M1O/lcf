@@ -1,7 +1,7 @@
 #!/bin/bash                                                                                                                                     
 # Script: Linux Configuration File                                             
 # Description: LCF is a simple script to personalize your Linux distro as H4M1O.
-# Version: 2.2.4                                                                 
+# Version: 2.2.5                                                                 
 # Date: 27-05-2016                                                               
 # Author: Claudio Proietti                                                       
 # License: The MIT License (MIT) - Copyright (c) 2016 Claudio Proietti
@@ -19,7 +19,7 @@ function main ()
     fi
 
     # control if sudo is installed and usable
-    sudo echo "Testing sudo!"
+    sudo echo "Testing sudo!" >> /dev/null
     if [ $? -eq 0 ] ; then
         SU="sudo"
         echo "Sudo installed!!!"
