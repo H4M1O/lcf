@@ -1,7 +1,7 @@
 #!/bin/bash                                                                                                                                     
 # Script: Linux Configuration File                                             
 # Description: LCF is a simple script to personalize your Linux distro as H4M1O.
-# Version: 2.2.2                                                                 
+# Version: 2.2.3                                                                 
 # Date: 27-05-2016                                                               
 # Author: Claudio Proietti                                                       
 # License: The MIT License (MIT) - Copyright (c) 2016 Claudio Proietti
@@ -40,7 +40,7 @@ function main ()
         menu                                                                         
         # read input from keyboard                                                   
         read OPT                                                                     
-        if [ $OPT -ge 0 -a $OPT -le 7 ]                                              
+        if [ $OPT -ge 0 -a $OPT -le 88888888 ]                                              
         then                                                                         
             case $OPT in                                                             
                 1 ) 
