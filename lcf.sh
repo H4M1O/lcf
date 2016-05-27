@@ -1,7 +1,7 @@
 #!/bin/bash                                                                                                                                     
 # Script: Linux Configuration File                                             
 # Description: LCF is a simple script to personalize your Linux distro as H4M1O.
-# Version: 2.2.3                                                                 
+# Version: 2.2.4                                                                 
 # Date: 27-05-2016                                                               
 # Author: Claudio Proietti                                                       
 # License: The MIT License (MIT) - Copyright (c) 2016 Claudio Proietti
@@ -127,6 +127,9 @@ function vim_cfg ()
     cp -r .vim ~/
     cp .vimrc ~/
     cp .plugins_vim ~/
+    mkdir ~/.vim/.undo
+    mkdir ~/.vim/.backup
+    mkdir ~/.vim/.swap
     neb_cfg $1
 }
 
@@ -171,42 +174,40 @@ function neb_cfg ()
     fi
 
     # write initial setting for .plugins_vim
-    echo "" > ~/.plugins_vim
-    echo "" >> ~/.plugins_vim 
-    echo "NeoBundle Scripts-----------------------------" >> ~/.plugins_vim 
-    echo "Required:" >> ~/.plugins_vim
+    echo "\" NeoBundle Scripts-----------------------------" >> ~/.plugins_vim 
+    echo "\" Required:" >> ~/.plugins_vim
     echo "set runtimepath^=$BUNDLE_DIR/neobundle.vim/" >> ~/.plugins_vim
     echo "" >> ~/.plugins_vim
-    echo "Required:" >> ~/.plugins_vim
+    echo "\" Required:" >> ~/.plugins_vim
     echo "call neobundle#begin(expand('$BUNDLE_DIR'))" >> ~/.plugins_vim
     echo "" >> ~/.plugins_vim
-    echo "Let NeoBundle manage NeoBundle" >> ~/.plugins_vim
-    echo "Required:" >> ~/.plugins_vim
+    echo "\" Let NeoBundle manage NeoBundle" >> ~/.plugins_vim
+    echo "\" Required:" >> ~/.plugins_vim
     echo "NeoBundleFetch 'Shougo/neobundle.vim'" >> ~/.plugins_vim
     echo "" >> ~/.plugins_vim
-    echo "Add or remove your Bundles here:" >> ~/.plugins_vim
+    echo "\" Add or remove your Bundles here:" >> ~/.plugins_vim
     echo "NeoBundle 'Shougo/neosnippet.vim'" >> ~/.plugins_vim
     echo "NeoBundle 'Shougo/neosnippet-snippets'" >> ~/.plugins_vim
     echo "NeoBundle 'tpope/vim-fugitive'" >> ~/.plugins_vim
     echo "NeoBundle 'ctrlpvim/ctrlp.vim'" >> ~/.plugins_vim
     echo "NeoBundle 'flazz/vim-colorschemes'" >> ~/.plugins_vim
-    echo "NeoBundle 'bling/vim-airline'" >> ~/plugins_vim                                                        
+    echo "NeoBundle 'bling/vim-airline'" >> ~/plugins_vim
     echo "NeoBundle 'tpope/vim-surround'" >> ~/plugins_vim
     echo "NeoBundle 'scrooloose/syntastic'">> ~/plugins_vim
     echo "" >> ~/.plugins_vim
-    echo "You can specify revision/branch/tag." >> ~/.plugins_vim
+    echo "\" You can specify revision/branch/tag." >> ~/.plugins_vim
     echo "NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }" >> ~/.plugins_vim
     echo "" >> ~/.plugins_vim
-    echo "Required:" >> ~/.plugins_vim
+    echo "\" Required:" >> ~/.plugins_vim
     echo "call neobundle#end()" >> ~/.plugins_vim
     echo "" >> ~/.plugins_vim
-    echo "Required:" >> ~/.plugins_vim
+    echo "\" Required:" >> ~/.plugins_vim
     echo "filetype plugin indent on" >> ~/.plugins_vim
     echo "" >> ~/.plugins_vim
-    echo "If there are uninstalled bundles found on startup," >> ~/.plugins_vim
-    echo "this will conveniently prompt you to install them." >> ~/.plugins_vim
+    echo "\" If there are uninstalled bundles found on startup," >> ~/.plugins_vim
+    echo "\" this will conveniently prompt you to install them." >> ~/.plugins_vim
     echo "NeoBundleCheck" >> ~/.plugins_vim
-    echo "End NeoBundle Scripts-------------------------" >> ~/.plugins_vim
+    echo "\" End NeoBundle Scripts-------------------------" >> ~/.plugins_vim
     echo "" >> ~/.plugins_vim
     echo "colorscheme molokai" >> ~/.plugins_vim
 }
