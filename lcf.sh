@@ -153,6 +153,9 @@ function neb_cfg ()
     echo "NeoBundle 'tpope/vim-fugitive'" >> ~/.plugins_vim
     echo "NeoBundle 'ctrlpvim/ctrlp.vim'" >> ~/.plugins_vim
     echo "NeoBundle 'flazz/vim-colorschemes'" >> ~/.plugins_vim
+    echo "NeoBundle 'bling/vim-airline'" >> ~/plugins_vim                                                        
+    echo "NeoBundle 'tpope/vim-surround'" >> ~/plugins_vim
+    echo "NeoBundle 'scrooloose/syntastic'">> ~/plugins_vim
     echo "" >> ~/.plugins_vim
     echo "You can specify revision/branch/tag." >> ~/.plugins_vim
     echo "NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }" >> ~/.plugins_vim
