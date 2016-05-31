@@ -1,7 +1,7 @@
 #!/bin/bash                                                                                                                                     
 # Script: Linux Configuration File                                             
 # Description: LCF is a simple script to personalize your Linux distro as H4M1O.
-# Version: 2.2.6                                                                 
+# Version: 2.2.7                                                                 
 # Date: 31-05-2016                                                               
 # Author: Claudio Proietti                                                       
 # License: The MIT License (MIT) - Copyright (c) 2016 Claudio Proietti
@@ -9,14 +9,14 @@
 function main ()
 {                                                                                    
     # control the OS to determine if is Ubuntu or Debian
-    uname -a | egrep Ubuntu
-    if [ $? -eq 0 ] ; then
-        SO=0
-        echo "Ubuntu installed!!!"
-    else
-        SO=1
-        echo "Debian installed!!!"
-    fi
+    #uname -a | egrep Ubuntu
+    #if [ $? -eq 0 ] ; then
+    #    SO=0
+    #    echo "Ubuntu installed!!!"
+    #else
+    #    SO=1
+    #    echo "Debian installed!!!"
+    #fi
 
     # control if sudo is installed and usable
     sudo echo "Testing sudo!" >> /dev/null
@@ -30,8 +30,8 @@ function main ()
 
     # This is the main function that show the menu and allows the user to make a choice
     # declared integer for user's choice                                             
-    echo "$($SU apt-get update)" 
-    echo "$($SU apt-get upgrade -y)"
+    $SU apt-get update 
+    $SU apt-get upgrade -y
     
     clear                                                                            
     declare -i OPT                                                                   
@@ -40,7 +40,7 @@ function main ()
         menu                                                                         
         # read input from keyboard                                                   
         read OPT                                                                     
-        if [ $OPT -ge 0 -a $OPT -le 8 ]                                              
+        if [ "$OPT" -ge 0 -a "$OPT" -le 8 ]                                              
         then                                                                         
             case $OPT in                                                             
                 1 ) 
@@ -72,7 +72,7 @@ function main ()
                 echo -e "$(tput setaf 0)$(tput setab 2)\nAPPS INSTALLATION AND CONFIGURATION COMPLETED!$(tput sgr 0)\n"
                 exit 1                
                 ;;
-                8 ) echo "$($SU user_inst)"
+                8 ) $SU user_inst
                 user_cfg $SU
                 echo -e "$(tput setaf 0)$(tput setab 2)\nAPPS INSTALLATION AND CONFIGURATION COMPLETED!$(tput sgr 0)\n"
                 exit 1                
@@ -83,7 +83,7 @@ function main ()
                 ;;                                                                   
             esac                                                                     
         else                                                                         
-            echo $OPT                                                                
+            echo "$OPT"                                                                
             clear                                                                    
             echo -e "$(tput setaf 7)$(tput setab 1)ATTENTION: You have inserted the wrong option!!!$(tput sgr 0)\n"
         fi                                                                           
@@ -117,38 +117,38 @@ function bash_cfg ()
 
 function gac_cfg ()
 {
-    echo "$($1 apt-get install curl -y)"
-    echo "$($1 apt-get install git -y)"
+    $1 apt-get install curl -y
+    $1 apt-get install git -y
 }
 
 function vim_cfg ()
 {
-    echo "$($1 apt-get install vim -y)"
+    $1 apt-get install vim -y
     cp -r .vim ~/
     cp .vimrc ~/
     cp .plugins_vim ~/
     mkdir ~/.vim/.undo
     mkdir ~/.vim/.backup
     mkdir ~/.vim/.swap
-    neb_cfg $1
+    neb_cfg "$1"
 }
 
 function tmux_cfg ()
 {
-    echo "$($1 apt-get install tmux -y)"
+    $1 apt-get install tmux -y
     cp .tmux.conf ~/
 }
 
 function i3_cfg ()
 {
-    echo "$($1 apt-get install i3 -y)"
+    $1 apt-get install i3 -y
     cp -r .i3 ~/
-    echo "$($1 cp etc/i3status.conf /etc/i3status.conf)"
+    $1 cp etc/i3status.conf /etc/i3status.conf
 }
 
 function sec_cfg ()
 {
-    echo "$($1 apt-get install openssl-client -y)"
+    $1 apt-get install openssl-client -y
     ssh-keygen -b 4096 -t rsa
 }
 
@@ -174,42 +174,42 @@ function neb_cfg ()
     fi
 
     # write initial setting for .plugins_vim
-    echo "\" NeoBundle Scripts-----------------------------" > ~/.plugins_vim 
-    echo "\" Required:" >> ~/.plugins_vim
-    echo "set runtimepath^=$BUNDLE_DIR/neobundle.vim/" >> ~/.plugins_vim
-    echo "" >> ~/.plugins_vim
-    echo "\" Required:" >> ~/.plugins_vim
-    echo "call neobundle#begin(expand('$BUNDLE_DIR'))" >> ~/.plugins_vim
-    echo "" >> ~/.plugins_vim
-    echo "\" Let NeoBundle manage NeoBundle" >> ~/.plugins_vim
-    echo "\" Required:" >> ~/.plugins_vim
-    echo "NeoBundleFetch 'Shougo/neobundle.vim'" >> ~/.plugins_vim
-    echo "" >> ~/.plugins_vim
-    echo "\" Add or remove your Bundles here:" >> ~/.plugins_vim
-    echo "NeoBundle 'Shougo/neosnippet.vim'" >> ~/.plugins_vim
-    echo "NeoBundle 'Shougo/neosnippet-snippets'" >> ~/.plugins_vim
-    echo "NeoBundle 'tpope/vim-fugitive'" >> ~/.plugins_vim
-    echo "NeoBundle 'ctrlpvim/ctrlp.vim'" >> ~/.plugins_vim
-    echo "NeoBundle 'flazz/vim-colorschemes'" >> ~/.plugins_vim
-    echo "NeoBundle 'bling/vim-airline'" >> ~/plugins_vim
-    echo "NeoBundle 'tpope/vim-surround'" >> ~/plugins_vim
-    echo "NeoBundle 'scrooloose/syntastic'">> ~/plugins_vim
-    echo "" >> ~/.plugins_vim
-    echo "\" You can specify revision/branch/tag." >> ~/.plugins_vim
-    echo "NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }" >> ~/.plugins_vim
-    echo "" >> ~/.plugins_vim
-    echo "\" Required:" >> ~/.plugins_vim
-    echo "call neobundle#end()" >> ~/.plugins_vim
-    echo "" >> ~/.plugins_vim
-    echo "\" Required:" >> ~/.plugins_vim
-    echo "filetype plugin indent on" >> ~/.plugins_vim
-    echo "" >> ~/.plugins_vim
-    echo "\" If there are uninstalled bundles found on startup," >> ~/.plugins_vim
-    echo "\" this will conveniently prompt you to install them." >> ~/.plugins_vim
-    echo "NeoBundleCheck" >> ~/.plugins_vim
-    echo "\" End NeoBundle Scripts-------------------------" >> ~/.plugins_vim
-    echo "" >> ~/.plugins_vim
-    echo "colorscheme molokai" >> ~/.plugins_vim
+    echo -e "\" NeoBundle Scripts----------------------------- \n
+    \" Required:\n
+    set runtimepath^=$BUNDLE_DIR/neobundle.vim/
+    \n
+    \" Required:\n
+    call neobundle#begin(expand('$BUNDLE_DIR'))\n
+    \n
+    \" Let NeoBundle manage NeoBundle\n
+    \" Required:\n
+    NeoBundleFetch 'Shougo/neobundle.vim'\n
+    \n
+    \" Add or remove your Bundles here:\n
+    NeoBundle 'Shougo/neosnippet.vim'\n
+    NeoBundle 'Shougo/neosnippet-snippets'\n
+    NeoBundle 'tpope/vim-fugitive'\n
+    NeoBundle 'ctrlpvim/ctrlp.vim'\n
+    NeoBundle 'flazz/vim-colorschemes'\n
+    NeoBundle 'bling/vim-airline'\n
+    NeoBundle 'tpope/vim-surround'\n
+    NeoBundle 'scrooloose/syntastic'\n
+    \n
+    \" You can specify revision/branch/tag.\n
+    NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }\n
+    \n
+    \" Required:\n
+    call neobundle#end()\n
+    \n
+    \" Required:\n
+    filetype plugin indent on\n
+    \n
+    \" If there are uninstalled bundles found on startup,\n
+    \" this will conveniently prompt you to install them.\n
+    NeoBundleCheck\n
+    \" End NeoBundle Scripts-------------------------\n
+    \n
+    colorscheme molokai" > ~/.plugins_vim
 }
 
 function root_cfg ()
@@ -223,11 +223,11 @@ function root_cfg ()
 
 function user_cfg ()
 {
-    bash_cfg $1
-    vim_cfg $1
-    tmux_cfg $1
-    i3_cfg $1
-    sec_cfg $1
+    bash_cfg "$1"
+    vim_cfg "$1"
+    tmux_cfg "$1"
+    i3_cfg "$1"
+    sec_cfg "$1"
 }
 
 #Call to the main function
