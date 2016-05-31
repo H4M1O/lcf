@@ -1,8 +1,8 @@
 #!/bin/bash                                                                                                                                     
 # Script: Linux Configuration File                                             
 # Description: LCF is a simple script to personalize your Linux distro as H4M1O.
-# Version: 2.2.5                                                                 
-# Date: 27-05-2016                                                               
+# Version: 2.2.6                                                                 
+# Date: 31-05-2016                                                               
 # Author: Claudio Proietti                                                       
 # License: The MIT License (MIT) - Copyright (c) 2016 Claudio Proietti
 
@@ -40,7 +40,7 @@ function main ()
         menu                                                                         
         # read input from keyboard                                                   
         read OPT                                                                     
-        if [ $OPT -ge 0 -a $OPT -le 88888888 ]                                              
+        if [ $OPT -ge 0 -a $OPT -le 8 ]                                              
         then                                                                         
             case $OPT in                                                             
                 1 ) 
@@ -97,8 +97,8 @@ function menu ()
     echo -e "Script created by Claudio Proietti under MIT license$(tput sgr 0)\n"
     echo -e "These are the available options:\n"                                 
     echo "1 - CONFIGURE BASH"       
-    echo "2 - INSTALL AND CONFIGURE VIM" 
-    echo "3 - INSTALL AND CONFIGURE GIT AND CURL" 
+    echo "2 - INSTALL AND CONFIGURE GIT AND CURL" 
+    echo "3 - INSTALL AND CONFIGURE VIM" 
     echo "4 - INSTALL AND CONFIGURE TMUX"       
     echo "5 - INSTALL AND CONFIGURE I3 (Requires sudo to work!)"
     echo "6 - INSTALL AND CONFIGURE SSH" 
@@ -174,7 +174,7 @@ function neb_cfg ()
     fi
 
     # write initial setting for .plugins_vim
-    echo "\" NeoBundle Scripts-----------------------------" >> ~/.plugins_vim 
+    echo "\" NeoBundle Scripts-----------------------------" > ~/.plugins_vim 
     echo "\" Required:" >> ~/.plugins_vim
     echo "set runtimepath^=$BUNDLE_DIR/neobundle.vim/" >> ~/.plugins_vim
     echo "" >> ~/.plugins_vim
