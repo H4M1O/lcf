@@ -1,8 +1,8 @@
 #!/bin/bash                                                                                                                                     
 # Script: Linux Configuration File                                             
 # Description: LCF is a simple script to personalize your Linux distro as H4M1O.
-# Version: 2.2.7                                                                 
-# Date: 31-05-2016                                                               
+# Version: 2.3.8                                                                 
+# Date: 01-06-2016                                                               
 # Author: Claudio Proietti                                                       
 # License: The MIT License (MIT) - Copyright (c) 2016 Claudio Proietti
 
@@ -40,7 +40,7 @@ function main ()
         menu                                                                         
         # read input from keyboard                                                   
         read OPT                                                                     
-        if [ "$OPT" -ge 0 -a "$OPT" -le 8 ]                                              
+        if [ "$OPT" -ge 0 -a "$OPT" -le 9 ]                                              
         then                                                                         
             case $OPT in                                                             
                 1 ) 
@@ -68,11 +68,16 @@ function main ()
                 echo -e "$(tput setaf 0)$(tput setab 2)\nSECURITY INSTALLATION AND CONFIGURATION COMPLETED!$(tput sgr 0)\n"
                 ;;                                                                   
                 7 ) 
+                com_cfg $SU
+                echo -e "$(tput setaf 0)$(tput setab 2)\nCOMMON APPS INSTALLATION AND CONFIGURATION COMPLETED!$(tput sgr 0)\n"
+                exit 1                
+                ;;
+                8 ) 
                 root_cfg
                 echo -e "$(tput setaf 0)$(tput setab 2)\nAPPS INSTALLATION AND CONFIGURATION COMPLETED!$(tput sgr 0)\n"
                 exit 1                
                 ;;
-                8 ) $SU user_inst
+                9 ) $SU user_inst
                 user_cfg $SU
                 echo -e "$(tput setaf 0)$(tput setab 2)\nAPPS INSTALLATION AND CONFIGURATION COMPLETED!$(tput sgr 0)\n"
                 exit 1                
@@ -102,8 +107,9 @@ function menu ()
     echo "4 - INSTALL AND CONFIGURE TMUX"       
     echo "5 - INSTALL AND CONFIGURE I3 (Requires sudo to work!)"
     echo "6 - INSTALL AND CONFIGURE SSH" 
-    echo "7 - INSTALL AND CONFIGURE ALL THE APPS FOR ROOT (NO SUDO!!!)"
-    echo "8 - INSTALL AND CONFIGURE ALL THE APPS FOR A STANDARD USER (Require 
+    echo "7 - INSTALL AND CONFIGURE ALL THE COMMON APPS (Chromium, Spotify, etc.)"
+    echo "8 - INSTALL AND CONFIGURE ALL THE APPS FOR ROOT (NO SUDO!!!)"
+    echo "9 - INSTALL AND CONFIGURE ALL THE APPS FOR A STANDARD USER (Require 
     root or sudo)" 
     echo -e "\n0 - Exit the script\n"                                            
     echo "$(tput setaf 3)Write now the option that you want select and press enter: $(tput sgr 0)"  
@@ -212,6 +218,11 @@ function neb_cfg ()
     colorscheme molokai" > ~/.plugins_vim
 }
 
+function com_cfg ()
+{
+    $1 apt-get install chromium-browser spotify-client arandr shutter remmina  
+}
+
 function root_cfg ()
 {
     bash_cfg
@@ -219,6 +230,7 @@ function root_cfg ()
     tmux_cfg
     i3_cfg
     sec_cfg
+    com_cfg
 }
 
 function user_cfg ()
@@ -228,6 +240,7 @@ function user_cfg ()
     tmux_cfg "$1"
     i3_cfg "$1"
     sec_cfg "$1"
+    com_cfg "$1"
 }
 
 #Call to the main function

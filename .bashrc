@@ -44,9 +44,6 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-# set the variable TERM to xterm color for every app
-export TERM=xterm-256color
-
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
@@ -91,7 +88,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias ll='ls -lah --color=auto --group-directories-first'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
-
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
@@ -104,6 +100,33 @@ fi
 #alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+
+# clear the scree
+alias c='clear'
+
+#change directory avoiding the use of the space
+alias cd.='cd ..'
+alias cd..='cd ../..'
+alias cd...='cd ../../..'
+alias cd....='cd ../../../..'
+alias cd.....='cd ../../../../..'
+
+# call SSH agent, add a key and call ssh
+alias k='
+if [ "ps -aux | egrep ssh-agent" ]; then
+    ssh-add -l
+    else
+    ssh-agent && ssh-add
+fi'
+
+#add another SSH key`
+alias ka='ssh-add'
+
+# call VIM
+alias v="vim"
+
+# return to home quickly
+alias h='cd ~/'
 
 # inserted lk to lock the screen with i3lock
 alias lk='i3lock -b -d -c 000000 -n -e -f'
