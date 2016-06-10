@@ -96,6 +96,9 @@ fi
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
+# call alias with a
+alias a='alias'
+
 # some more ls aliases
 #alias ll='ls -alF'
 alias la='ls -A'
@@ -112,14 +115,12 @@ alias cd....='cd ../../../..'
 alias cd.....='cd ../../../../..'
 
 # call SSH agent, add a key and call ssh
-alias k='
-if [ "ps -aux | egrep ssh-agent" ]; then
-    ssh-add -l
-    else
-    ssh-agent && ssh-add
-fi'
+alias k='killall ssh-agent && eval "$(ssh-agent)" && ssh-add'
 
-#add another SSH key`
+# show the list of the SSH keys loaded
+alias kl='ssh-add -l'
+
+# add another SSH key`
 alias ka='ssh-add'
 
 # call VIM
