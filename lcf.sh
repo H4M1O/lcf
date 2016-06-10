@@ -1,7 +1,7 @@
 #!/bin/bash                                                                                                                                     
 # Script: Linux Configuration File                                             
 # Description: LCF is a simple script to personalize your Linux distro as H4M1O.
-# Version: 2.3.8                                                                 
+# Version: 2.4.10                                                                 
 # Date: 01-06-2016                                                               
 # Author: Claudio Proietti                                                       
 # License: The MIT License (MIT) - Copyright (c) 2016 Claudio Proietti
@@ -220,7 +220,8 @@ function neb_cfg ()
 
 function com_cfg ()
 {
-    $1 apt-get install chromium-browser spotify-client arandr shutter remmina  
+    $1 apt-get install chromium-browser spotify-client arandr shutter remmina 
+    $1 apt-get install bmon tcptruck slurm
 }
 
 function root_cfg ()
