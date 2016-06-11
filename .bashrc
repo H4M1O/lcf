@@ -96,13 +96,12 @@ fi
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
 # call alias with a
 alias a='alias'
-
-# some more ls aliases
-#alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
 
 # clear the scree
 alias c='clear'
@@ -114,27 +113,33 @@ alias cd...='cd ../../..'
 alias cd....='cd ../../../..'
 alias cd.....='cd ../../../../..'
 
-# call SSH agent, add a key and call ssh
-alias k='killall ssh-agent && eval "$(ssh-agent)" && ssh-add'
-
-# show the list of the SSH keys loaded
-alias kl='ssh-add -l'
-
-# add another SSH key`
-alias ka='ssh-add'
-
-# call VIM
-alias v="vim"
+# call exit
+alias e="exit"
 
 # return to home quickly
 alias h='cd ~/'
 
+#alias ll='ls -alF'
+alias l='ls -CF'
+alias la='ls -A'
+
 # inserted lk to lock the screen with i3lock
 alias lk='i3lock -b -d -c 000000 -n -e -f'
 
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+# call SSH agent, add a key and call ssh
+alias k='killall ssh-agent && eval "$(ssh-agent)" && ssh-add'
+
+# add another SSH key`
+alias ka='ssh-add'
+
+# show the list of the SSH keys loaded
+alias kl='ssh-add -l'
+
+# call tmux
+alias t="tmux"
+
+# call VIM
+alias v="vim"
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
