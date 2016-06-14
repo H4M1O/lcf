@@ -133,7 +133,7 @@ alias la='ls -A'
 alias lk='i3lock -b -d -c 000000 -n -e -f'
 
 # call SSH agent, add a key and call ssh
-alias k='killall ssh-agent && eval "$(ssh-agent)" && ssh-add'
+alias k='killall ssh-agent || eval "$(ssh-agent)" && ssh-add'
 
 # add another SSH key`
 alias ka='ssh-add'
