@@ -113,8 +113,14 @@ alias cd...='cd ../../..'
 alias cd....='cd ../../../..'
 alias cd.....='cd ../../../../..'
 
+# call du for directory space
+alias d="du -sh"
+
 # call exit
 alias e="exit"
+
+# call df for disk space
+alias f="df -h"
 
 # return to home quickly
 alias h='cd ~/'
@@ -140,6 +146,9 @@ alias t="tmux"
 
 # call VIM
 alias v="vim"
+
+# call watch and enable the use of alias with it
+alias w="watch "
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
