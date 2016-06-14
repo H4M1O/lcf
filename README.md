@@ -1,2 +1,2 @@
-# lcf
+# LCF
 Linux Configuration Files
