@@ -103,11 +103,15 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # call alias with a
 alias a='alias'
 
+# enable audio
+alias a+='amixer set Master 100 unmute; amixer set Headphone 100 unmute; amixer set PCM 100 unmute; amixer set Front 100 unmute'
+
+# disable audio
+alias a-='amixer set Master 0 mute; amixer set Headphone 0 mute; amixer set PCM 0 mute; amixer set Front 0 mute'
+
 # clear the scree
 alias c='clear'
 
-#change directory avoiding the use of the space
-alias cd.='cd ..'
 alias cd..='cd ../..'
 alias cd...='cd ../../..'
 alias cd....='cd ../../../..'
