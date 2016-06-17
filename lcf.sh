@@ -1,7 +1,7 @@
 #!/bin/bash                                                                                                                                     
 # Script: Linux Configuration File                                             
 # Description: LCF is a simple script to personalize your Linux distro as H4M1O.
-# Version: 2.5.14                                                                 
+# Version: 2.6.14                                                                 
 # Date: 17-06-2016                                                               
 # Author: Claudio Proietti                                                       
 # License: The MIT License (MIT) - Copyright (c) 2016 Claudio Proietti
@@ -221,7 +221,7 @@ function neb_cfg ()
 function com_cfg ()
 {
     $1 apt-get install chromium-browser arandr shutter remmina 
-    $1 apt-get install bmon tcptrack slurm
+    $1 apt-get install bmon tcptrack slurm minicom
     # commands to install spotify
     $1 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886
 	$1 echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
