@@ -1,7 +1,7 @@
 #!/bin/bash                                                                                                                                     
 # Script: Linux Configuration File                                             
 # Description: LCF is a simple script to personalize your Linux distro as H4M1O.
-# Version: 2.6.14                                                                 
+# Version: 2.7.14                                                                 
 # Date: 17-06-2016                                                               
 # Author: Claudio Proietti                                                       
 # License: The MIT License (MIT) - Copyright (c) 2016 Claudio Proietti
@@ -101,7 +101,7 @@ function menu ()
     echo "$(tput setaf 3)$(tput bold)Welcome to L.C.F. - Linux Configuration Files"
     echo -e "Script created by Claudio Proietti under MIT license$(tput sgr 0)\n"
     echo -e "These are the available options:\n"                                 
-    echo "1 - CONFIGURE BASH"       
+    echo "1 - CONFIGURE BASH AND TOP"       
     echo "2 - INSTALL AND CONFIGURE GIT AND CURL" 
     echo "3 - INSTALL AND CONFIGURE VIM" 
     echo "4 - INSTALL AND CONFIGURE TMUX"       
@@ -119,6 +119,7 @@ function bash_cfg ()
 {
     cp .bashrc ~/
     source ~/.bashrc
+    cp .toprc ~/
 }
 
 function gac_cfg ()

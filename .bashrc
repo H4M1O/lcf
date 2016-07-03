@@ -112,6 +112,8 @@ alias a-='amixer set Master 0 mute; amixer set Headphone 0 mute; amixer set PCM 
 # clear the scree
 alias c='clear'
 
+#call cd shortcuts 
+alias cd.='cd ..'
 alias cd..='cd ../..'
 alias cd...='cd ../../..'
 alias cd....='cd ../../../..'
@@ -147,6 +149,9 @@ alias kl='ssh-add -l'
 
 # call tmux
 alias t="tmux"
+
+# call top
+alias tt="top"
 
 # call VIM
 alias v="vim"
