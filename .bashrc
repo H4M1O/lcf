@@ -2,6 +2,8 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+export TERM=xterm-256color
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -104,12 +106,15 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias a='alias'
 
 # enable audio
-alias a+='amixer set Master 100 unmute; amixer set Headphone 100 unmute; amixer set PCM 100 unmute; amixer set Front 100 unmute'
+alias a+='amixer set Master 100 unmute; amixer set Headphone 100 unmute; amixer set PCM 100 unmute; amixer set Front 100 unmute; amixer set Speaker 100 unmute;'
 
 # disable audio
-alias a-='amixer set Master 0 mute; amixer set Headphone 0 mute; amixer set PCM 0 mute; amixer set Front 0 mute'
+alias a-='amixer set Master 0 mute; amixer set Headphone 0 mute; amixer set PCM 0 mute; amixer set Front 0 mute; amixer set Speaker 0 mute'
 
-# clear the scree
+# modify the volume by passing the value after the command
+alias avol='amixer set PCM'
+
+# clear the screen
 alias c='clear'
 
 #call cd shortcuts 
@@ -136,7 +141,7 @@ alias l='ls -CF'
 alias la='ls -A'
 
 # inserted lk to lock the screen with i3lock
-alias lk='i3lock -b -d -c 000000 -n -e -f'
+alias lk='i3lock -b -d -c 000000 -n'
 
 # call SSH agent, add a key and call ssh
 alias k='killall ssh-agent || eval "$(ssh-agent)" && ssh-add'

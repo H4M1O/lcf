@@ -160,13 +160,16 @@ bindsym $mod+n exec "firefox"
 bindsym $mod+p exec "evince"
 
 #lock your computer
-bindsym $mod+q exec "i3lock -b -d -c 000000 -n -e -f"
+bindsym $mod+q exec "i3lock -b -d -c 000000 -n"
 
 #call hexchat
 bindsym $mod+t exec "hexchat"
 
 #call remmina for RDP
 bindsym $mod+u exec "remmina"
+
+#call openbet desk screens setup
+bindsym $mod+Shift+d exec /home/cproiett/.screenlayout/screens.sh
 
 #PERSONALIZED KEYBINDS BEFORE THIS COMMENT
 
