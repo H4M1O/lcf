@@ -1,8 +1,8 @@
 #!/bin/bash                                                                                                                                     
 # Script: Linux Configuration File                                             
 # Description: LCF is a simple script to personalize your Linux distro as H4M1O.
-# Version: 2.7.14                                                                 
-# Date: 17-06-2016                                                               
+# Version: 2.8.14                                                                 
+# Date: 16-08-2016                                                               
 # Author: Claudio Proietti                                                       
 # License: The MIT License (MIT) - Copyright (c) 2016 Claudio Proietti
 
@@ -151,6 +151,8 @@ function i3_cfg ()
     $1 apt-get install i3 -y
     cp -r .i3 ~/
     $1 cp etc/i3status.conf /etc/i3status.conf
+    $1 cp ./reboot.sh ~/
+    $1 cp ./shutdown.sh ~/
 }
 
 function sec_cfg ()
