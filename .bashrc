@@ -4,6 +4,9 @@
 
 export TERM=xterm-256color
 
+#export the configuration on every shell
+shopt -s expand_aliases
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -151,6 +154,12 @@ alias ka='ssh-add'
 
 # show the list of the SSH keys loaded
 alias kl='ssh-add -l'
+
+# push the .bashrc over ssh in .cpbashrc
+alias s="ssh"
+
+# push the .bashrc over ssh in .cpbashrc
+alias sp="./ssh_push.sh"
 
 # call tmux
 alias t="tmux"
