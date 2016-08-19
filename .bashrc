@@ -71,11 +71,26 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;34m\]\A\[\033[00m\]-\[\033[01;32m\]\u\[\033[00m\]@\[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
-unset color_prompt force_color_prompt
+#unset color_prompt force_color_prompt
+
+# change the color of the user on PS1 if is different from my user
+if [ $(whoami) == "cproiett" ]; then
+    if [ $(hostname) == "lp02511" ]; then    
+        PS1='${debian_chroot:+($debian_chroot)}\[\033[01;34m\]\A\[\033[00m\]-\[\033[01;32m\]\u\[\033[00m\]@\[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$ '
+    else
+        PS1='${debian_chroot:+($debian_chroot)}\[\033[01;34m\]\A\[\033[00m\]-\[\033[01;32m\]\u\[\033[00m\]@\[\033[01;31m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$ '
+    fi
+else 
+    if [ $(hostname) == "lp02511" ]; then    
+        PS1='${debian_chroot:+($debian_chroot)}\[\033[01;34m\]\A\[\033[00m\]-\[\033[01;33m\]\u\[\033[00m\]@\[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$ '
+    else
+        PS1='${debian_chroot:+($debian_chroot)}\[\033[01;34m\]\A\[\033[00m\]-\[\033[01;33m\]\u\[\033[00m\]@\[\033[01;31m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$ '
+   fi 
+fi
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
@@ -160,6 +175,9 @@ alias s="ssh"
 
 # push the .bashrc over ssh in .cpbashrc
 alias sp="./ssh_push.sh"
+
+# enable alias on sudo
+alias sudo='sudo '
 
 # call tmux
 alias t="tmux"
