@@ -92,7 +92,7 @@ bindsym $mod+h split h
 bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen global
+bindsym $mod+f fullscreen
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
@@ -162,6 +162,7 @@ bindsym $mod+c exec "gnome-calculator"
 
 #call openbet desk screens setup
 bindsym $mod+Shift+d exec ~/.screenlayout/screen.sh
+#bindsym $mod+Shift+d exec ~/.screenlayout/screen_pitstop.sh
 
 #call shutter for screeshots
 bindsym $mod+i exec "shutter"
@@ -182,7 +183,8 @@ bindsym $mod+p exec "evince"
 bindsym Print exec gnome-screenshot --interactive
 
 #lock your computer
-bindsym $mod+q exec "i3lock -b -d -c 000000 -n"
+#bindsym $mod+q exec "i3lock -b -d -c 000000 -n"
+bindsym $mod+q exec "i3lock -c 000000"
 
 #call reboot script
 bindsym $mod+Control+r exec sudo ~/reboot.sh

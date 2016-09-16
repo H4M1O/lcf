@@ -104,8 +104,6 @@ esac
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    alias ll='ls -lah --color=auto --group-directories-first'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
     alias grep='grep --color=auto'
@@ -115,6 +113,11 @@ fi
 
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# MOTD every terminl opened
+if [ $(hostname) == "lp02511" ]; then                                        
+    fortune -s | cowsay -f /usr/share/cowsay/cows/dragon.cow
+fi
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -154,8 +157,12 @@ alias f="df -h"
 # return to home quickly
 alias h='cd ~/'
 
+# less in color
+alias l='less -R'
+
 #alias ll='ls -alF'
-alias l='ls -CF'
+alias ls='ls --color=auto'
+alias ll='ls -lah --color=auto --group-directories-first'
 alias la='ls -A'
 
 # inserted lk to lock the screen with i3lock
@@ -190,6 +197,9 @@ alias v="vim"
 
 # call watch and enable the use of alias with it
 alias w="watch "
+
+# call the weather page and show it the terminal
+alias we="curl wttr.in/london"
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like

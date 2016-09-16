@@ -1,41 +1,70 @@
-"NeoBundle Scripts-----------------------------
-if &compatible
-  set nocompatible               " Be iMproved
-endif
+" NeoBundle Scripts----------------------------- 
 
-" Required:
-set runtimepath^=/home/claudio/.vim/bundle/neobundle.vim/
+    " Required:
 
-" Required:
-call neobundle#begin(expand('/home/claudio/.vim/bundle'))
+    set runtimepath^=/home/cproiett/.vim/bundle/neobundle.vim/
+    
 
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
+    " Required:
 
-" Add or remove your Bundles here:
-NeoBundle 'Shougo/neosnippet.vim'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'ctrlpvim/ctrlp.vim'
-NeoBundle 'flazz/vim-colorschemes'
-NeoBundle 'powerline/powerline'
-NeoBundle 'bling/vim-airline'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'scrooloose/syntastic'
+    call neobundle#begin(expand('/home/cproiett/.vim/bundle'))
 
-" You can specify revision/branch/tag.
-NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
+    
 
-" Required:
-call neobundle#end()
+    " Let NeoBundle manage NeoBundle
 
-" Required:
-filetype plugin indent on
+    " Required:
 
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
-"End NeoBundle Scripts-------------------------
+    NeoBundleFetch 'Shougo/neobundle.vim'
 
-colorscheme molokai
+    
+
+    " Add or remove your Bundles here:
+
+    NeoBundle 'Shougo/neosnippet.vim'
+
+    NeoBundle 'Shougo/neosnippet-snippets'
+
+    NeoBundle 'tpope/vim-fugitive'
+
+    NeoBundle 'ctrlpvim/ctrlp.vim'
+
+    NeoBundle 'flazz/vim-colorschemes'
+
+    NeoBundle 'bling/vim-airline'
+
+    NeoBundle 'tpope/vim-surround'
+
+    NeoBundle 'scrooloose/syntastic'
+
+    
+
+    " You can specify revision/branch/tag.
+
+    NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
+
+    
+
+    " Required:
+
+    call neobundle#end()
+
+    
+
+    " Required:
+
+    filetype plugin indent on
+
+    
+
+    " If there are uninstalled bundles found on startup,
+
+    " this will conveniently prompt you to install them.
+
+    NeoBundleCheck
+
+    " End NeoBundle Scripts-------------------------
+
+    
+
+    colorscheme molokai
