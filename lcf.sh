@@ -1,8 +1,8 @@
 #!/bin/bash                                                                                                                                     
 # Script: Linux Configuration File                                             
 # Description: LCF is a simple script to personalize your Linux distro as H4M1O.
-# Version: 2.9.14                                                                 
-# Date: 16-08-2016                                                               
+# Version: 2.9.15                                                                 
+# Date: 24-09-2016                                                               
 # Author: Claudio Proietti                                                       
 # License: The MIT License (MIT) - Copyright (c) 2016 Claudio Proietti
 
@@ -154,6 +154,7 @@ function i3_cfg ()
     $1 cp etc/i3status.conf /etc/i3status.conf
     $1 cp ./reboot.sh ~/
     $1 cp ./shutdown.sh ~/
+	$1 cp -r Wallpapers ~/
 }
 
 function sec_cfg ()
@@ -169,63 +170,28 @@ function neb_cfg ()
     # Original version is created by shoma2da
     # https://github.com/shoma2da/neobundle_installer
     # Installation directory
-    BUNDLE_DIR=~/.vim/bundle
-    INSTALL_DIR="$BUNDLE_DIR/neobundle.vim"
-    echo "$INSTALL_DIR"
-    if [ -e "$INSTALL_DIR" ]; then
-        echo "$INSTALL_DIR already exists!"
-    fi
+    #BUNDLE_DIR=~/.vim/bundle
+    #INSTALL_DIR="$BUNDLE_DIR/neobundle.vim"
+    #echo "$INSTALL_DIR"
+    #if [ -e "$INSTALL_DIR" ]; then
+    #    echo "$INSTALL_DIR already exists!"
+    #fi
 
     # make bundle dir and fetch neobundle
-    echo "Begin fetching NeoBundle..."
-    if ! [ -e "$INSTALL_DIR" ]; then
-        mkdir -p "$BUNDLE_DIR"
-        git clone https://github.com/Shougo/neobundle.vim "$INSTALL_DIR"
-    fi
-
-    # write initial setting for .plugins_vim
-    echo -e "\" NeoBundle Scripts----------------------------- \n
-    \" Required:\n
-    set runtimepath^=$BUNDLE_DIR/neobundle.vim/
-    \n
-    \" Required:\n
-    call neobundle#begin(expand('$BUNDLE_DIR'))\n
-    \n
-    \" Let NeoBundle manage NeoBundle\n
-    \" Required:\n
-    NeoBundleFetch 'Shougo/neobundle.vim'\n
-    \n
-    \" Add or remove your Bundles here:\n
-    NeoBundle 'Shougo/neosnippet.vim'\n
-    NeoBundle 'Shougo/neosnippet-snippets'\n
-    NeoBundle 'tpope/vim-fugitive'\n
-    NeoBundle 'ctrlpvim/ctrlp.vim'\n
-    NeoBundle 'flazz/vim-colorschemes'\n
-    NeoBundle 'bling/vim-airline'\n
-    NeoBundle 'tpope/vim-surround'\n
-    NeoBundle 'scrooloose/syntastic'\n
-    \n
-    \" You can specify revision/branch/tag.\n
-    NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }\n
-    \n
-    \" Required:\n
-    call neobundle#end()\n
-    \n
-    \" Required:\n
-    filetype plugin indent on\n
-    \n
-    \" If there are uninstalled bundles found on startup,\n
-    \" this will conveniently prompt you to install them.\n
-    NeoBundleCheck\n
-    \" End NeoBundle Scripts-------------------------\n
-    \n
-    colorscheme molokai" > ~/.plugins_vim
+    #echo "Begin fetching NeoBundle..."
+    #if ! [ -e "$INSTALL_DIR" ]; then
+    #    mkdir -p "$BUNDLE_DIR"
+    #    git clone https://github.com/Shougo/neobundle.vim "$INSTALL_DIR"
+    #fi
+	cp -R .vim ~/.vim
+    cp .plugins_vim ~/.plugins_vim
 }
 
 function com_cfg ()
 {
-    $1 apt-get install chromium-browser arandr shutter remmina 
-    $1 apt-get install bmon tcptrack slurm minicom
+    $1 apt-get install chromium-browser arandr shutter vlc -y 
+    $1 apt-get install bmon tcptrack slurm minicom feh -y
+	$1 apt-get install remmina google-chrome-stable -y
     # commands to install spotify
     $1 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886
 	$1 echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
