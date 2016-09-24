@@ -1,70 +1,46 @@
 " NeoBundle Scripts----------------------------- 
+" Required:
 
-    " Required:
+set runtimepath^=/home/cproiett/.vim/bundle/neobundle.vim/
+    
+" Required:
 
-    set runtimepath^=/home/cproiett/.vim/bundle/neobundle.vim/
+call neobundle#begin(expand('/home/cproiett/.vim/bundle'))
     
 
-    " Required:
+" Let NeoBundle manage NeoBundle
+" Required:
 
-    call neobundle#begin(expand('/home/cproiett/.vim/bundle'))
+NeoBundleFetch 'Shougo/neobundle.vim'
 
-    
+" Add or remove your Bundles here:
 
-    " Let NeoBundle manage NeoBundle
+NeoBundle 'Shougo/neosnippet.vim'
+NeoBundle 'Shougo/neosnippet-snippets'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'ctrlpvim/ctrlp.vim'
+NeoBundle 'flazz/vim-colorschemes'
+NeoBundle 'bling/vim-airline'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'scrooloose/syntastic'
 
-    " Required:
+" You can specify revision/branch/tag.
 
-    NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
 
-    
+" Required:
 
-    " Add or remove your Bundles here:
+call neobundle#end()
 
-    NeoBundle 'Shougo/neosnippet.vim'
+" Required:
 
-    NeoBundle 'Shougo/neosnippet-snippets'
+filetype plugin indent on
 
-    NeoBundle 'tpope/vim-fugitive'
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
 
-    NeoBundle 'ctrlpvim/ctrlp.vim'
+NeoBundleCheck
 
-    NeoBundle 'flazz/vim-colorschemes'
-
-    NeoBundle 'bling/vim-airline'
-
-    NeoBundle 'tpope/vim-surround'
-
-    NeoBundle 'scrooloose/syntastic'
-
-    
-
-    " You can specify revision/branch/tag.
-
-    NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
-
-    
-
-    " Required:
-
-    call neobundle#end()
-
-    
-
-    " Required:
-
-    filetype plugin indent on
-
-    
-
-    " If there are uninstalled bundles found on startup,
-
-    " this will conveniently prompt you to install them.
-
-    NeoBundleCheck
-
-    " End NeoBundle Scripts-------------------------
-
-    
-
-    colorscheme molokai
+" End NeoBundle Scripts-------------------------
+ 
+colorscheme molokai
