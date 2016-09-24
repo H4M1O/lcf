@@ -10,6 +10,10 @@ set $mod Mod4
 # layout, use the i3-config-wizard
 #
 
+
+#change background image
+exec feh --randomize --bg-fill ~/Wallpapers/
+
 # Enable Network Management
 exec --no-startup-id nm-applet
 
@@ -179,12 +183,15 @@ bindsym $mod+n exec "firefox"
 #call evince PDF reader
 bindsym $mod+p exec "evince"
 
+#call chat Slack
+bindsym $mod+Shift+s exec "slack"
+
 # Print screen
 bindsym Print exec gnome-screenshot --interactive
 
 #lock your computer
-#bindsym $mod+q exec "i3lock -b -d -c 000000 -n"
-bindsym $mod+q exec "i3lock -c 000000"
+bindsym $mod+q exec "i3lock -b -d -c 000000 -n"
+#bindsym $mod+q exec "i3lock -c 000000"
 
 #call reboot script
 bindsym $mod+Control+r exec sudo ~/reboot.sh
@@ -197,6 +204,9 @@ bindsym $mod+u exec "remmina"
 
 #call shutdown script
 bindsym $mod+Control+x exec sudo ~/shutdown.sh
+
+#change background image
+bindsym $mod+Shift+w exec feh --randomize --bg-fill ~/Wallpapers/
 
 #PERSONALIZED KEYBINDS BEFORE THIS COMMENT
 
@@ -239,8 +249,10 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #d
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+#bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+#bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+bindsym XF86MonBrightnessDown exec --no-startup-id sudo bright_down
+bindsym XF86MonBrightnessUp exec --no-startup-id sudo bright_up
 
 # Touchpad controls
 bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad

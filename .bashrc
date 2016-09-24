@@ -2,6 +2,8 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+source ./.sec_alias
+
 export TERM=xterm-256color
 
 #export the configuration on every shell

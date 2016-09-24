@@ -1,0 +1,10 @@
+ctrlp.vim
+neobundle.vim
+neosnippet-snippets
+neosnippet.vim
+syntastic
+vim-airline
+vim-colorschemes
+vim-fugitive
+vim-surround
+vimshell

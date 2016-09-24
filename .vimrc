@@ -1,6 +1,6 @@
 " This configuration doesn't require any plugin
 " This line will load the other configuration file with plugins
-source ~/.plugins_vim 
+source /home/cproiett/.plugins_vim 
 
 " Enable arrow keys and others in Vim 
 set nocompatible
@@ -107,7 +107,7 @@ set showmatch
 
 " Insert spaces whenever the tab key is used. To use the real Tab you must 
 " insert the character sequence Ctrl-V<Tab>
-set expandtab
+set noexpandtab
 " Number of space inserted when tab is pressed 
 set tabstop=4
 " Number of space inserted for indentation
