@@ -156,6 +156,9 @@ alias e="exit"
 # call df for disk space
 alias f="df -h"
 
+# call for thefuck
+eval $(thefuck --alias fk)
+
 # return to home quickly
 alias h='cd ~/'
 
