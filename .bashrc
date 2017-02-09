@@ -118,7 +118,7 @@ fi
 
 # MOTD every terminal opened
 if [ $(hostname) == "hostname" ]; then                                        
-    cmatrix -s; (echo -e "H4M1O IS WATCHING YOU...\n"; fortune -s; echo; date +"%A %d %B %Y - %T") | cowsay -f dragon | lolcat
+    cmatrix -abs -C red; (echo -e "H4M1O IS WATCHING YOU...\n"; fortune -s; echo; date +"%A %d %B %Y - %T") | cowsay -f dragon | lolcat
 fi
 
 # Add an "alert" alias for long running commands.  Use like so:
