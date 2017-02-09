@@ -80,14 +80,14 @@ fi
 #unset color_prompt force_color_prompt
 
 # change the color of the user on PS1 if is different from my user
-if [ $(whoami) == "cproiett" ]; then
-    if [ $(hostname) == "lp02511" ]; then    
+if [ $(whoami) == "username" ]; then
+    if [ $(hostname) == "hostname" ]; then    
         PS1='${debian_chroot:+($debian_chroot)}\[\033[01;34m\]\A\[\033[00m\]-\[\033[01;32m\]\u\[\033[00m\]@\[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$ '
     else
         PS1='${debian_chroot:+($debian_chroot)}\[\033[01;34m\]\A\[\033[00m\]-\[\033[01;32m\]\u\[\033[00m\]@\[\033[01;31m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$ '
     fi
 else 
-    if [ $(hostname) == "lp02511" ]; then    
+    if [ $(hostname) == "hostname" ]; then    
         PS1='${debian_chroot:+($debian_chroot)}\[\033[01;34m\]\A\[\033[00m\]-\[\033[01;33m\]\u\[\033[00m\]@\[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$ '
     else
         PS1='${debian_chroot:+($debian_chroot)}\[\033[01;34m\]\A\[\033[00m\]-\[\033[01;33m\]\u\[\033[00m\]@\[\033[01;31m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$ '
@@ -116,9 +116,9 @@ fi
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# MOTD every terminl opened
-if [ $(hostname) == "lp02511" ]; then                                        
-    fortune -s | cowsay -f /usr/share/cowsay/cows/dragon.cow
+# MOTD every terminal opened
+if [ $(hostname) == "hostname" ]; then                                        
+    cmatrix -s; (echo -e "H4M1O IS WATCHING YOU...\n"; fortune -s; echo; date +"%A %d %B %Y - %T") | cowsay -f dragon | lolcat
 fi
 
 # Add an "alert" alias for long running commands.  Use like so:
@@ -139,6 +139,9 @@ alias avol='amixer set PCM'
 
 # clear the screen
 alias c='clear'
+
+#clear the screen and restart dragon
+alias cc='clear; (echo -e "H4M1O IS WATCHING YOU...\n"; fortune -s; echo; date +"%A %d %B %Y - %T") | cowsay -f dragon | lolcat'
 
 #call cd shortcuts 
 alias cd.='cd ..'
