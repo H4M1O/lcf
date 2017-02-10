@@ -1,8 +1,8 @@
 #!/bin/bash                                                                                                                                     
 # Script: Linux Configuration File                                             
 # Description: LCF is a simple script to personalize your Linux distro as H4M1O.
-# Version: 2.10.15                                                                 
-# Date: 24-09-2016                                                               
+# Version: 2.10.16                                                                 
+# Date: 10-02-2017                                                               
 # Author: Claudio Proietti                                                       
 # License: The MIT License (MIT) - Copyright (c) 2016 Claudio Proietti
 
@@ -31,7 +31,7 @@ function main ()
     # This is the main function that show the menu and allows the user to make a choice
     # declared integer for user's choice                                             
     $SU apt-get update 
-    $SU apt-get upgrade -y
+    $SU apt-get dist-upgrade -y
     
     clear                                                                            
     declare -i OPT                                                                   
@@ -108,9 +108,8 @@ function menu ()
     echo "5 - INSTALL AND CONFIGURE I3 (Requires sudo to work!)"
     echo "6 - INSTALL AND CONFIGURE SSH" 
     echo "7 - INSTALL AND CONFIGURE ALL THE COMMON APPS (Chromium, Spotify, etc.)"
-    echo "8 - INSTALL AND CONFIGURE ALL THE APPS FOR ROOT (NO SUDO!!!)"
-    echo "9 - INSTALL AND CONFIGURE ALL THE APPS FOR A STANDARD USER (Require 
-    root or sudo)" 
+    echo "8 - INSTALL AND CONFIGURE ALL THE APPS FOR ROOT (NO SUDO!!! NO SSH!!!)"
+    echo "9 - INSTALL AND CONFIGURE ALL THE APPS FOR A STANDARD USER (Require root or sudo! NO SSH!!!)" 
     echo -e "\n0 - Exit the script\n"                                            
     echo "$(tput setaf 3)Write now the option that you want select and press enter: $(tput sgr 0)"  
 }      
@@ -135,9 +134,9 @@ function vim_cfg ()
     cp -r .vim ~/
     cp .vimrc ~/
     cp .plugins_vim ~/
-    mkdir ~/.vim/.undo
-    mkdir ~/.vim/.backup
-    mkdir ~/.vim/.swap
+    # mkdir ~/.vim/.undo
+    # mkdir ~/.vim/.backup
+    # mkdir ~/.vim/.swap
     neb_cfg "$1"
 }
 
@@ -154,7 +153,7 @@ function i3_cfg ()
     $1 cp etc/i3status.conf /etc/i3status.conf
     $1 cp ./reboot.sh ~/
     $1 cp ./shutdown.sh ~/
-	$1 cp -r Wallpapers ~/
+    $1 cp -r Wallpapers ~/
 }
 
 function sec_cfg ()
@@ -170,36 +169,38 @@ function neb_cfg ()
     # Original version is created by shoma2da
     # https://github.com/shoma2da/neobundle_installer
     # Installation directory
-    #BUNDLE_DIR=~/.vim/bundle
-    #INSTALL_DIR="$BUNDLE_DIR/neobundle.vim"
-    #echo "$INSTALL_DIR"
-    #if [ -e "$INSTALL_DIR" ]; then
-    #    echo "$INSTALL_DIR already exists!"
-    #fi
+    BUNDLE_DIR=~/.vim/bundle
+    INSTALL_DIR="$BUNDLE_DIR/neobundle.vim"
+    echo "$INSTALL_DIR"
+    if [ -e "$INSTALL_DIR" ]; then
+        echo "$INSTALL_DIR already exists!"
+    fi
 
     # make bundle dir and fetch neobundle
-    #echo "Begin fetching NeoBundle..."
-    #if ! [ -e "$INSTALL_DIR" ]; then
-    #    mkdir -p "$BUNDLE_DIR"
-    #    git clone https://github.com/Shougo/neobundle.vim "$INSTALL_DIR"
-    #fi
-	cp -R .vim ~/.vim
+    # echo "Begin fetching NeoBundle..."
+    if ! [ -e "$INSTALL_DIR" ]; then
+        mkdir -p "$BUNDLE_DIR"
+        git clone https://github.com/Shougo/neobundle.vim "$INSTALL_DIR"
+    fi
+    # cp -R .vim ~/.vim
     cp .plugins_vim ~/.plugins_vim
 }
 
 function com_cfg ()
 {
+    # commands to install spotify
+    $1 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886
+    $1 echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
+    $1 apt-get update
+    $1 apt-get install spotify-client -y
+    # Install other apps
     $1 apt-get install chromium-browser arandr shutter vlc -y 
     $1 apt-get install bmon tcptrack slurm minicom feh -y
-	$1 apt-get install remmina google-chrome-stable -y
+    $1 apt-get install remmina google-chrome-stable -y
     $1 apt-get install xbacklight -y
-	$1 apt-get install python3-dev python3-pip -y
-	$1 apt-get -H pip3 install thefuck
-	# commands to install spotify
-    $1 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886
-	$1 echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
-	$1 apt-get update
-	$1 apt-get install spotify-client 
+    $1 apt-get install python3-dev python3-pip -y
+    $1 apt-get -H pip3 install thefuck
+    $1 apt-get install cmatrix sl lolcat ddate cowsay -y
 }
 
 function root_cfg ()
@@ -208,8 +209,8 @@ function root_cfg ()
     vim_cfg
     tmux_cfg
     i3_cfg
-    sec_cfg
     com_cfg
+    # sec_cfg
 }
 
 function user_cfg ()
@@ -218,8 +219,8 @@ function user_cfg ()
     vim_cfg "$1"
     tmux_cfg "$1"
     i3_cfg "$1"
-    sec_cfg "$1"
     com_cfg "$1"
+    # sec_cfg "$1"
 }
 
 #Call to the main function
