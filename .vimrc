@@ -1,6 +1,9 @@
 " This configuration doesn't require any plugin
-" This line will load the other configuration file with plugins
-source /home/cproiett/.plugins_vim 
+" This line will load the other configuration file with plugins, enable it only if it's needed
+" source /home/cproiett/.plugins_vim 
+
+" Set color to molokai
+colorscheme molokai
 
 " Enable arrow keys and others in Vim 
 set nocompatible
