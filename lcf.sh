@@ -1,8 +1,8 @@
 #!/bin/bash                                                                                                                                     
 # Script: Linux Configuration File                                             
 # Description: LCF is a simple script to personalize your Linux distro as H4M1O.
-# Version: 2.10.16                                                                 
-# Date: 10-02-2017                                                               
+# Version: 2.10.17                                                                 
+# Date: 12-02-2017                                                               
 # Author: Claudio Proietti                                                       
 # License: The MIT License (MIT) - Copyright (c) 2016 Claudio Proietti
 
@@ -198,9 +198,9 @@ function com_cfg ()
     $1 apt-get install bmon tcptrack slurm minicom feh -y
     $1 apt-get install remmina google-chrome-stable -y
     $1 apt-get install xbacklight -y
-    $1 apt-get install python3-dev python3-pip -y
+    $1 apt-get install python3-dev python3-pip python-pkg-resources -y
     $1 apt-get -H pip3 install thefuck
-    $1 apt-get install cmatrix sl lolcat ddate cowsay -y
+    $1 apt-get install cmatrix sl lolcat ddate cowsay fortune-mod -y
 }
 
 function root_cfg ()
