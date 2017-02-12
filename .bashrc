@@ -2,7 +2,8 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-source ./.sec_alias
+# enable only in case I am using a secondary file for aliases
+# source ./.sec_alias
 
 export TERM=xterm-256color
 
