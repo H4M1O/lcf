@@ -196,11 +196,15 @@ function com_cfg ()
     # Install other apps
     $1 apt-get install chromium-browser arandr shutter vlc -y 
     $1 apt-get install bmon tcptrack slurm minicom feh -y
+    $1 apt-get install glances lnav iotop -y
     $1 apt-get install remmina google-chrome-stable -y
     $1 apt-get install xbacklight -y
     $1 apt-get install python3-dev python3-pip python-pkg-resources -y
-    $1 apt-get -H pip3 install thefuck
+    $1 apt-get install python-pip -y
+    $1 pip install --upgrade pip
+    #$1 apt-get -H pip3 install thefuck
     $1 apt-get install cmatrix sl lolcat ddate cowsay fortune-mod -y
+    $1 pip install thefuck
 }
 
 function root_cfg ()
