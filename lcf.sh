@@ -1,7 +1,7 @@
 #!/bin/bash                                                                                                                                     
 # Script: Linux Configuration File                                             
 # Description: LCF is a simple script to personalize your Linux distro as H4M1O.
-# Version: 3.2.2                                                                 
+# Version: 3.2.3                                                                 
 # Date: 29-05-2017                                                               
 # Author: Claudio Proietti                                                       
 # License: The MIT License (MIT) - Copyright (c) 2017 Claudio Proietti
@@ -165,9 +165,7 @@ function all_apps ()
 	# add the user to the new groups docker and lxd
 	if [ $(whoami) != "root" ]; then
 		usermod -aG docker $(whoami)
-		newgrp docker
 		usermod -aG lxd $(whoami)
-		newgrp lxd
 	fi
 }
 
