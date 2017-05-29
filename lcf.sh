@@ -1,7 +1,7 @@
 #!/bin/bash                                                                                                                                     
 # Script: Linux Configuration File                                             
 # Description: LCF is a simple script to personalize your Linux distro as H4M1O.
-# Version: 3.1.1                                                                 
+# Version: 3.2.1                                                                 
 # Date: 29-05-2017                                                               
 # Author: Claudio Proietti                                                       
 # License: The MIT License (MIT) - Copyright (c) 2017 Claudio Proietti
@@ -153,6 +153,20 @@ function all_apps ()
     $1 apt-get install chromium-browser google-chrome-stable -y
 	# install vlc
 	$1 apt-get install vlc -y 
+	# install LXD latest upstream
+	$1 add-apt-repository ppa:ubuntu-lxc/lxd-stable
+	$1 apt-get update
+	$1 apt-get dist-upgrade -y
+	$1 apt-get install lxd -y
+	# install Docker
+	$1 apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-xenial main'
+	$1 apt-get update
+	$1 apt-get install docker-engine -y
+	# add the user to the new groups docker and lxd
+	if [ $(whoami) != "root" ]; then
+		usermod -aG docker $(whoami)
+		usermod -aG lxd $(whoami)
+	fi
 }
 
 function all_apps_up ()
