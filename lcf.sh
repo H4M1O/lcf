@@ -1,7 +1,7 @@
 #!/bin/bash                                                                                                                                     
 # Script: Linux Configuration File                                             
 # Description: LCF is a simple script to personalize your Linux distro as H4M1O.
-# Version: 3.0.1                                                                 
+# Version: 3.1.1                                                                 
 # Date: 29-05-2017                                                               
 # Author: Claudio Proietti                                                       
 # License: The MIT License (MIT) - Copyright (c) 2017 Claudio Proietti
@@ -39,19 +39,15 @@ function main ()
                 echo -e "$(tput setaf 0)$(tput setab 2)\nBASIC INSTALLATION AND CONFIGURATION (BASHRC, VIMRC, TOP, TMUX) COMPLETED!$(tput sgr 0)\n"                
                 ;;
                 3 )
-                work_apps $SU
-                echo -e "$(tput setaf 0)$(tput setab 2)\nINSTALLATION AND CONFIGURATION OF WORK APPLICATION (I3, NMAP...) COMPLETED!$(tput sgr 0)\n"                
+                all_apps $SU
+                echo -e "$(tput setaf 0)$(tput setab 2)\nINSTALLATION AND CONFIGURATION OF ALL THE APPLICATION (I3, NMAP...) COMPLETED!$(tput sgr 0)\n"                
                 ;;
                 4 )
-                personal_apps $SU                                                    
-                echo -e "$(tput setaf 0)$(tput setab 2)\nINSTALLATION AND CONFIGURATION OF PERSONAL APPLICATIONS (SPOTIFY...) COMPLETED!$(tput sgr 0)\n"
-                ;;                                                                   
-                5 )
                 all_apps_up $SU
                 echo -e "$(tput setaf 0)$(tput setab 2)\nINSTALLATION AND CONFIGURATION OF ALL THE APPS WITH OS UPDATE COMPLETED!$(tput sgr 0)\n"                
                 ;;
-                6 )
-                all_apps $SU                                                   
+                5 )
+                all_apps_noup $SU                                                   
                 echo -e "$(tput setaf 0)$(tput setab 2)\nINSTALLATION AND CONFIGURATION OF ALL THE APPS WITHOUT OS UPDATE COMPLETED!$(tput sgr 0)\n"
                 ;;                                                                   
                 0 ) clear
@@ -75,26 +71,27 @@ function menu ()
     echo -e "These are the available options:\n"                                 
     echo "1 - UPDATE AND UPGRADE THE SYSTEM"       
     echo "2 - BASIC INSTALLATION AND CONFIGURATION (BASHRC, VIMRC, TOP, TMUX)" 
-    echo "3 - INSTALL AND CONFIGURE WORK APPLICATION (I3, NMAP...)" 
-    echo "4 - INSTALL AND CONFIGURE PERSONAL APPLICATIONS (SPOTIFY...)"       
-    echo "5 - INSTALL AND CONFIGURE ALL THE APPS WITH OS UPDATE"
-    echo "6 - INSTALL AND CONFIGURE ALL THE APPS WITHOUT OS UPDATE"
+    echo "3 - INSTALL AND CONFIGURE ALL THE OTHER  APPLICATION (I3, NMAP, SPOTIFY...)" 
+    echo "4 - INSTALL AND CONFIGURE ALL THE APPS WITH OS UPDATE"
+    echo "5 - INSTALL AND CONFIGURE ALL THE APPS WITHOUT OS UPDATE"
     echo -e "\n0 - Exit the script\n"                                            
     echo "$(tput setaf 3)Write now the option that you want select and press enter: $(tput sgr 0)"  
 }      
 
 function os_update ()
 {
+	# update the repos and do a sit-upgrade
     $1 apt-get update 
     $1 apt-get dist-upgrade -y
 }
 
 function base_cfg ()
 {
-    cp .bashrc ~/
+	# copy .bashrc base
+    cp .bashrc_base ~/.bashrc
     source ~/.bashrc
-    cp .toprc ~/
-    cp .ssh_push.sh ~/
+    # copy .toprc config
+	cp .toprc ~/
 	# install curl
     $1 apt-get install curl -y
 	# install and configure GIT
@@ -112,8 +109,11 @@ function base_cfg ()
     cp .tmux.conf ~/
 }
 
-function work_apps ()
+function all_apps ()
 {
+	# copy .bashrc base
+    cp .bashrc ~/.bashrc
+    source ~/.bashrc
 	# install I3 + Wallpapers
     $1 apt-get install i3 -y
     cp -r .i3 ~/
@@ -137,10 +137,13 @@ function work_apps ()
 	$1 apt-get install gnupg2 -y
 	# install NMap and ZMap
 	$1 apt-get install nmap zmap -y
-}
-
-function personal_apps ()
-{
+	# install thefuck
+    $1 apt-get install python3-dev python3-pip python-pkg-resources -y
+    $1 apt-get install python-pip -y
+    $1 pip install --upgrade pip
+    $1 pip install thefuck
+    # install fun applications for the terminal
+    $1 apt-get install cmatrix sl lolcat ddate cowsay fortune-mod -y
     # install spotify
     $1 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886
     $1 echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
@@ -150,28 +153,19 @@ function personal_apps ()
     $1 apt-get install chromium-browser google-chrome-stable -y
 	# install vlc
 	$1 apt-get install vlc -y 
-	# install thefuck
-    $1 apt-get install python3-dev python3-pip python-pkg-resources -y
-    $1 apt-get install python-pip -y
-    $1 pip install --upgrade pip
-    $1 pip install thefuck
-    # install fun applications for the terminal
-    $1 apt-get install cmatrix sl lolcat ddate cowsay fortune-mod -y
 }
 
 function all_apps_up ()
 {
     os_update "$1"
 	base_cfg "$1"
-	work_apps "$1"
-	personal_apps "$1"
+	all_apps "$1"
 }
 
-function all_apps ()
+function all_apps_noup ()
 {
 	base_cfg "$1"
-	work_apps "$1"
-	personal_apps "$1"
+	all_apps "$1"
 }
 
 #Call to the main function
