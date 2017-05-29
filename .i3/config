@@ -10,7 +10,6 @@ set $mod Mod4
 # layout, use the i3-config-wizard
 #
 
-
 #change background image
 exec feh --randomize --bg-fill ~/Wallpapers/
 
@@ -166,7 +165,6 @@ bindsym $mod+c exec "gnome-calculator"
 
 #call openbet desk screens setup
 bindsym $mod+Shift+d exec ~/.screenlayout/screen.sh
-#bindsym $mod+Shift+d exec ~/.screenlayout/screen_pitstop.sh
 
 #call shutter for screeshots
 bindsym $mod+i exec "shutter"
@@ -193,8 +191,8 @@ bindsym Print exec gnome-screenshot --interactive
 bindsym $mod+q exec "i3lock -b -d -c 000000 -n"
 #bindsym $mod+q exec "i3lock -c 000000"
 
-#call reboot script
-bindsym $mod+Control+r exec sudo ~/reboot.sh
+#reboot system
+bindsym $mod+Control+r exec "sudo init 6"
 
 #call hexchat
 bindsym $mod+t exec "hexchat"
@@ -202,8 +200,8 @@ bindsym $mod+t exec "hexchat"
 #call remmina for RDP
 bindsym $mod+u exec "remmina"
 
-#call shutdown script
-bindsym $mod+Control+x exec sudo ~/shutdown.sh
+#shutdown system
+bindsym $mod+Control+x exec "sudo init 0"
 
 #change background image
 bindsym $mod+Shift+w exec feh --randomize --bg-fill ~/Wallpapers/
@@ -255,7 +253,7 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightnes
 #bindsym XF86MonBrightnessUp exec --no-startup-id sudo bright_up
 
 # Touchpad controls
-bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
+# bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
 
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play

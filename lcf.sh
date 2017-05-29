@@ -1,38 +1,25 @@
 #!/bin/bash                                                                                                                                     
 # Script: Linux Configuration File                                             
 # Description: LCF is a simple script to personalize your Linux distro as H4M1O.
-# Version: 2.10.17                                                                 
-# Date: 12-02-2017                                                               
+# Version: 3.0.0                                                                 
+# Date: 29-05-2017                                                               
 # Author: Claudio Proietti                                                       
-# License: The MIT License (MIT) - Copyright (c) 2016 Claudio Proietti
+# License: The MIT License (MIT) - Copyright (c) 2017 Claudio Proietti
 
 function main ()
 {                                                                                    
-    # control the OS to determine if is Ubuntu or Debian
-    #uname -a | egrep Ubuntu
-    #if [ $? -eq 0 ] ; then
-    #    SO=0
-    #    echo "Ubuntu installed!!!"
-    #else
-    #    SO=1
-    #    echo "Debian installed!!!"
-    #fi
-
     # control if sudo is installed and usable
     sudo echo "Testing sudo!" >> /dev/null
     if [ $? -eq 0 ] ; then
         SU="sudo"
-        echo "Sudo installed!!!"
+        echo "Sudo installed!!!" >> /dev/null
     else
         SU=""
-        echo "Sudo not installed!!!"
+        echo "Sudo not installed!!!" >> /dev/null
     fi
-
+    
     # This is the main function that show the menu and allows the user to make a choice
     # declared integer for user's choice                                             
-    $SU apt-get update 
-    $SU apt-get dist-upgrade -y
-    
     clear                                                                            
     declare -i OPT                                                                   
     while true                                                                       
@@ -44,50 +31,35 @@ function main ()
         then                                                                         
             case $OPT in                                                             
                 1 ) 
-                bash_cfg                                                     
-                echo -e "$(tput setaf 0)$(tput setab 2)\nBASH CONFIGURATION COMPLETED!$(tput sgr 0)\n"
+                os_update $SU                                                 
+                echo -e "$(tput setaf 0)$(tput setab 2)\nSYSTEM UPDATE AND UPGRADE COMPLETED!$(tput sgr 0)\n"
                 ;;                                                                   
                 2 )
-                gac_cfg $SU
-                echo -e "$(tput setaf 0)$(tput setab 2)\nGIT AND CURL INSTALLATION AND CONFIGURATION COMPLETED!$(tput sgr 0)\n"                
+                base_cfg $SU
+                echo -e "$(tput setaf 0)$(tput setab 2)\nBASIC INSTALLATION AND CONFIGURATION (BASHRC, VIMRC, TOP, TMUX) COMPLETED!$(tput sgr 0)\n"                
                 ;;
                 3 )
-                vim_cfg $SU
-                echo -e "$(tput setaf 0)$(tput setab 2)\nVIM INSTALLATION AND CONFIGURATION COMPLETED!$(tput sgr 0)\n"                
+                work_apps $SU
+                echo -e "$(tput setaf 0)$(tput setab 2)\nINSTALLATION AND CONFIGURATION OF WORK APPLICATION (I3, NMAP...) COMPLETED!$(tput sgr 0)\n"                
                 ;;
                 4 )
-                tmux_cfg $SU                                                    
-                echo -e "$(tput setaf 0)$(tput setab 2)\nTMUX INSTALLATION AND CONFIGURATION COMPLETED!$(tput sgr 0)\n"
+                personal_apps $SU                                                    
+                echo -e "$(tput setaf 0)$(tput setab 2)\nINSTALLATION AND CONFIGURATION OF PERSONAL APPLICATIONS (SPOTIFY...) COMPLETED!$(tput sgr 0)\n"
                 ;;                                                                   
                 5 )
-                i3_cfg $SU
-                echo -e "$(tput setaf 0)$(tput setab 2)\nI3 INSTALLATION AND CONFIGURATION COMPLETED!$(tput sgr 0)\n"                
+                all_apps_up $SU
+                echo -e "$(tput setaf 0)$(tput setab 2)\nINSTALLATION AND CONFIGURATION OF ALL THE APPS WITH OS UPDATE COMPLETED!$(tput sgr 0)\n"                
                 ;;
                 6 )
-                sec_cfg $SU                                                    
-                echo -e "$(tput setaf 0)$(tput setab 2)\nSECURITY INSTALLATION AND CONFIGURATION COMPLETED!$(tput sgr 0)\n"
+                all_apps $SU                                                   
+                echo -e "$(tput setaf 0)$(tput setab 2)\nINSTALLATION AND CONFIGURATION OF ALL THE APPS WITHOUT OS UPDATE COMPLETED!$(tput sgr 0)\n"
                 ;;                                                                   
-                7 ) 
-                com_cfg $SU
-                echo -e "$(tput setaf 0)$(tput setab 2)\nCOMMON APPS INSTALLATION AND CONFIGURATION COMPLETED!$(tput sgr 0)\n"
-                exit 1                
-                ;;
-                8 ) 
-                root_cfg
-                echo -e "$(tput setaf 0)$(tput setab 2)\nAPPS INSTALLATION AND CONFIGURATION COMPLETED!$(tput sgr 0)\n"
-                exit 1                
-                ;;
-                9 ) $SU user_inst
-                user_cfg $SU
-                echo -e "$(tput setaf 0)$(tput setab 2)\nAPPS INSTALLATION AND CONFIGURATION COMPLETED!$(tput sgr 0)\n"
-                exit 1                
-                ;;
                 0 ) clear
                 echo -e "$(tput setaf 7)$(tput setab 0)\nThank you for using this script!$(tput sgr 0)\n"
                 exit 1
                 ;;                                                                   
             esac                                                                     
-        else                                                                         
+        NSTALL AND CONFIGURE WORK APPLICATION (I3, NMAP...)else                                                                         
             echo "$OPT"                                                                
             clear                                                                    
             echo -e "$(tput setaf 7)$(tput setab 1)ATTENTION: You have inserted the wrong option!!!$(tput sgr 0)\n"
@@ -101,130 +73,105 @@ function menu ()
     echo "$(tput setaf 3)$(tput bold)Welcome to L.C.F. - Linux Configuration Files"
     echo -e "Script created by Claudio Proietti under MIT license$(tput sgr 0)\n"
     echo -e "These are the available options:\n"                                 
-    echo "1 - CONFIGURE BASH AND TOP"       
-    echo "2 - INSTALL AND CONFIGURE GIT AND CURL" 
-    echo "3 - INSTALL AND CONFIGURE VIM" 
-    echo "4 - INSTALL AND CONFIGURE TMUX"       
-    echo "5 - INSTALL AND CONFIGURE I3 (Requires sudo to work!)"
-    echo "6 - INSTALL AND CONFIGURE SSH" 
-    echo "7 - INSTALL AND CONFIGURE ALL THE COMMON APPS (Chromium, Spotify, etc.)"
-    echo "8 - INSTALL AND CONFIGURE ALL THE APPS FOR ROOT (NO SUDO!!! NO SSH!!!)"
-    echo "9 - INSTALL AND CONFIGURE ALL THE APPS FOR A STANDARD USER (Require root or sudo! NO SSH!!!)" 
+    echo "1 - UPDATE AND UPGRADE THE SYSTEM"       
+    echo "2 - BASIC INSTALLATION AND CONFIGURATION (BASHRC, VIMRC, TOP, TMUX)" 
+    echo "3 - INSTALL AND CONFIGURE WORK APPLICATION (I3, NMAP...)" 
+    echo "4 - INSTALL AND CONFIGURE PERSONAL APPLICATIONS (SPOTIFY...)"       
+    echo "5 - INSTALL AND CONFIGURE ALL THE APPS WITH OS UPDATE"
+    echo "6 - INSTALL AND CONFIGURE ALL THE APPS WITHOUT OS UPDATE"
     echo -e "\n0 - Exit the script\n"                                            
     echo "$(tput setaf 3)Write now the option that you want select and press enter: $(tput sgr 0)"  
 }      
 
-function bash_cfg ()
+function os_update ()
+{
+    $1 apt-get update 
+    $1 apt-get dist-upgrade -y
+}
+
+function base_cfg ()
 {
     cp .bashrc ~/
     source ~/.bashrc
     cp .toprc ~/
     cp .ssh_push.sh ~/
-}
-
-function gac_cfg ()
-{
+	# install curl
     $1 apt-get install curl -y
+	# install and configure GIT
     $1 apt-get install git -y
-}
-
-function vim_cfg ()
-{
+	git config --global push.followTags true
+	git config --global user.name "H4M1O"
+	git config --global user.email "claudio.proietti@gmail.com"
+	# install and configure VIM
     $1 apt-get install vim -y
     cp -r .vim ~/
     cp .vimrc ~/
     cp .plugins_vim ~/
-    # mkdir ~/.vim/.undo
-    # mkdir ~/.vim/.backup
-    # mkdir ~/.vim/.swap
-    neb_cfg "$1"
-}
-
-function tmux_cfg ()
-{
+	# install and configure TMUX
     $1 apt-get install tmux -y
     cp .tmux.conf ~/
 }
 
-function i3_cfg ()
+function work_apps ()
 {
+	# install I3 + Wallpapers
     $1 apt-get install i3 -y
     cp -r .i3 ~/
-    $1 cp etc/i3status.conf /etc/i3status.conf
+    $1 cp ./etc/i3status.conf /etc/i3status.conf
     $1 cp ./reboot.sh ~/
     $1 cp ./shutdown.sh ~/
     $1 cp -r Wallpapers ~/
+	# install graphical control software
+	$1 apt-get install xbacklight feh arandr shutter -y 
+	# install networking and sysadmin tools
+    $1 apt-get install bmon tcptrack slurm minicom glances lnav iotop htop -y
+	# install rdp software remmina
+	$1 apt-get install remmina -y
+	# install unzip
+	$1 apt-get install unzip -y
+	# install keepass2
+	$1 add-apt-repository ppa:eugenesan/ppa
+	$1 apt-get update
+	$1 apt-get install keepass2 -y
+	# install GPG
+	$1 apt-get install gnupg2 -y
+	# install NMap and ZMap
+	$1 apt-get install nmap zmap -y
 }
 
-function sec_cfg ()
+function personal_apps ()
 {
-    $1 apt-get install openssl-client -y
-    ssh-keygen -b 4096 -t rsa
-}
-
-function neb_cfg ()
-{    
-    #!/bin/sh
-    # Standalone installer for Unixs
-    # Original version is created by shoma2da
-    # https://github.com/shoma2da/neobundle_installer
-    # Installation directory
-    BUNDLE_DIR=~/.vim/bundle
-    INSTALL_DIR="$BUNDLE_DIR/neobundle.vim"
-    echo "$INSTALL_DIR"
-    if [ -e "$INSTALL_DIR" ]; then
-        echo "$INSTALL_DIR already exists!"
-    fi
-
-    # make bundle dir and fetch neobundle
-    # echo "Begin fetching NeoBundle..."
-    if ! [ -e "$INSTALL_DIR" ]; then
-        mkdir -p "$BUNDLE_DIR"
-        git clone https://github.com/Shougo/neobundle.vim "$INSTALL_DIR"
-    fi
-    # cp -R .vim ~/.vim
-    cp .plugins_vim ~/.plugins_vim
-}
-
-function com_cfg ()
-{
-    # commands to install spotify
+    # install spotify
     $1 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886
     $1 echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
     $1 apt-get update
     $1 apt-get install spotify-client -y
-    # Install other apps
-    $1 apt-get install chromium-browser arandr shutter vlc -y 
-    $1 apt-get install bmon tcptrack slurm minicom feh -y
-    $1 apt-get install glances lnav iotop -y
-    $1 apt-get install remmina google-chrome-stable -y
-    $1 apt-get install xbacklight -y
+    # install other browsers
+    $1 apt-get install chromium-browser google-chrome-stable -y
+	# install vlc
+	$1 apt-get install vlc -y 
+	# install thefuck
     $1 apt-get install python3-dev python3-pip python-pkg-resources -y
     $1 apt-get install python-pip -y
     $1 pip install --upgrade pip
-    #$1 apt-get -H pip3 install thefuck
-    $1 apt-get install cmatrix sl lolcat ddate cowsay fortune-mod -y
     $1 pip install thefuck
+    # install fun applications for the terminal
+    $1 apt-get install cmatrix sl lolcat ddate cowsay fortune-mod -y
 }
 
-function root_cfg ()
+function all_apps_up ()
 {
-    bash_cfg
-    vim_cfg
-    tmux_cfg
-    i3_cfg
-    com_cfg
-    # sec_cfg
+    os_update "$1"
+	base_cfg "$1"
+	work_apps "$1"
+	personal_apps "$1"
 }
 
-function user_cfg ()
+function all_apps ()
 {
-    bash_cfg "$1"
-    vim_cfg "$1"
-    tmux_cfg "$1"
-    i3_cfg "$1"
-    com_cfg "$1"
-    # sec_cfg "$1"
+	base_cfg "$1"
+	work_apps "$1"
+	personal_apps "$1"
 }
 
 #Call to the main function
