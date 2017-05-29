@@ -2,7 +2,7 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-# enabledonly in case I am using a secondary file for aliases
+# enable only in case I am using a secondary file for aliases
 # source ./.sec_alias
 
 # enable colored terminal

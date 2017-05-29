@@ -1,7 +1,7 @@
 #!/bin/bash                                                                                                                                     
 # Script: Linux Configuration File                                             
 # Description: LCF is a simple script to personalize your Linux distro as H4M1O.
-# Version: 3.0.0                                                                 
+# Version: 3.0.1                                                                 
 # Date: 29-05-2017                                                               
 # Author: Claudio Proietti                                                       
 # License: The MIT License (MIT) - Copyright (c) 2017 Claudio Proietti
@@ -59,7 +59,7 @@ function main ()
                 exit 1
                 ;;                                                                   
             esac                                                                     
-        NSTALL AND CONFIGURE WORK APPLICATION (I3, NMAP...)else                                                                         
+        else                                                                         
             echo "$OPT"                                                                
             clear                                                                    
             echo -e "$(tput setaf 7)$(tput setab 1)ATTENTION: You have inserted the wrong option!!!$(tput sgr 0)\n"
