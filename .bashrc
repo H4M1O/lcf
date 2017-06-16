@@ -5,7 +5,12 @@
 # enable only in case I am using a secondary file for aliases
 # source ./.sec_alias
 
-# enable colored terminal
+# enable smart completion
+if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
+
+# enable colored terminal and enable the possibilty to run script on the pwd
 export PATH=$PATH:/usr/games/:./
 
 # enable colored terminal
