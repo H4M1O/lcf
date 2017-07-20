@@ -91,6 +91,9 @@ alias c...='cd ../../..'
 alias c....='cd ../../../..'
 alias c.....='cd ../../../../..'
 
+# call cat with highlights
+cats() { highlight -O xterm256 -s molokai -l $1 | less -R; }
+
 # call du for directory space
 alias d="du -sh"
 
