@@ -1,8 +1,8 @@
 #!/bin/bash                                                                                                                                     
 # Script: Linux Configuration File                                             
 # Description: LCF is a simple script to personalize your Linux distro as H4M1O.
-# Version: 3.2.3                                                                 
-# Date: 29-05-2017                                                               
+# Version: 3.2.4                                                                 
+# Date: 20-07-2017                                                               
 # Author: Claudio Proietti                                                       
 # License: The MIT License (MIT) - Copyright (c) 2017 Claudio Proietti
 
