@@ -39,17 +39,25 @@ function main ()
                 echo -e "$(tput setaf 0)$(tput setab 2)\nBASIC INSTALLATION AND CONFIGURATION (BASHRC, VIMRC, TOP, TMUX) COMPLETED!$(tput sgr 0)\n"                
                 ;;
                 3 )
-                all_apps $SU
-                echo -e "$(tput setaf 0)$(tput setab 2)\nINSTALLATION AND CONFIGURATION OF ALL THE APPLICATION (I3, NMAP...) COMPLETED!$(tput sgr 0)\n"                
+                work_apps $SU
+                echo -e "$(tput setaf 0)$(tput setab 2)\nWORK TOOLS INSTALLATION AND CONFIGURATION (NMAP, HTOP, LNAV...)$(tput sgr 0)\n"                
                 ;;
                 4 )
+                desk_apps_up $SU
+                echo -e "$(tput setaf 0)$(tput setab 2)\nDESKTOP TOOLS INSTALLATION AND CONFIGURATION (BASHRC, VIMRC, TOP, TMUX)$(tput sgr 0)\n"                
+                ;;
+                5 )
+                other_apps $SU                                                   
+                echo -e "$(tput setaf 0)$(tput setab 2)\nINSTALL AND CONFIGURE ALL THE OTHER  APPLICATION (I3, NMAP, SPOTIFY...)$(tput sgr 0)\n"
+                ;;                 
+                6 )
                 all_apps_up $SU
                 echo -e "$(tput setaf 0)$(tput setab 2)\nINSTALLATION AND CONFIGURATION OF ALL THE APPS WITH OS UPDATE COMPLETED!$(tput sgr 0)\n"                
                 ;;
-                5 )
+                7 )
                 all_apps_noup $SU                                                   
                 echo -e "$(tput setaf 0)$(tput setab 2)\nINSTALLATION AND CONFIGURATION OF ALL THE APPS WITHOUT OS UPDATE COMPLETED!$(tput sgr 0)\n"
-                ;;                                                                   
+                ;;                 
                 0 ) clear
                 echo -e "$(tput setaf 7)$(tput setab 0)\nThank you for using this script!$(tput sgr 0)\n"
                 exit 1
@@ -70,116 +78,123 @@ function menu ()
     echo -e "Script created by Claudio Proietti under MIT license$(tput sgr 0)\n"
     echo -e "These are the available options:\n"                                 
     echo "1 - UPDATE AND UPGRADE THE SYSTEM"       
-    echo "2 - BASIC INSTALLATION AND CONFIGURATION (BASHRC, VIMRC, TOP, TMUX)" 
-    echo "3 - INSTALL AND CONFIGURE ALL THE OTHER  APPLICATION (I3, NMAP, SPOTIFY...)" 
-    echo "4 - INSTALL AND CONFIGURE ALL THE APPS WITH OS UPDATE"
-    echo "5 - INSTALL AND CONFIGURE ALL THE APPS WITHOUT OS UPDATE"
+    echo "2 - BASIC INSTALLATION AND CONFIGURATION (BASHRC, VIMRC, TOP, TMUX)"
+    echo "3 - WORK TOOLS INSTALLATION AND CONFIGURATION (NMAP, HTOP, LNAV...)"
+    echo "4 - DESKTOP TOOLS INSTALLATION AND CONFIGURATION (BASHRC, VIMRC, TOP, TMUX)"
+    echo "5 - INSTALL AND CONFIGURE ALL THE OTHER  APPLICATION (I3, NMAP, SPOTIFY...)" 
+    echo "6 - INSTALL AND CONFIGURE ALL THE APPS WITH OS UPDATE"
+    echo "7 - INSTALL AND CONFIGURE ALL THE APPS WITHOUT OS UPDATE"
     echo -e "\n0 - Exit the script\n"                                            
     echo "$(tput setaf 3)Write now the option that you want select and press enter: $(tput sgr 0)"  
 }      
 
 function os_update ()
 {
-	# update the repos and do a sit-upgrade
+    # update the repos and do a sit-upgrade
     $1 apt-get update 
     $1 apt-get dist-upgrade -y
 }
 
 function base_cfg ()
 {
-	# copy .bashrc base
+    # copy .bashrc base
     cp .bashrc_base ~/.bashrc
     source ~/.bashrc
     # copy .toprc config
-	cp .toprc ~/
-	# install curl
+    cp .toprc ~/
+    # install curl
     $1 apt-get install curl -y
-	# install and configure GIT
+    # install and configure GIT
     $1 apt-get install git -y
-	git config --global push.followTags true
-	git config --global user.name "H4M1O"
-	git config --global user.email "claudio.proietti@gmail.com"
-	# install and configure VIM
+    git config --global push.followTags true
+    git config --global user.name "H4M1O"
+    git config --global user.email "claudio.proietti@gmail.com"
+    # install and configure VIM
     $1 apt-get install vim -y
     cp -r .vim ~/
     cp .vimrc ~/
     cp .plugins_vim ~/
-	# install and configure TMUX
+    # install and configure TMUX
     $1 apt-get install tmux -y
+    $1 apt-get install highlight -y
     cp .tmux.conf ~/
 }
 
-function all_apps ()
+function work_apps ()
 {
-	# copy .bashrc base
+    # install networking and sysadmin tools
+    $1 apt-get install bmon tcptrack slurm minicom glances lnav iotop htop -y
+    # install rdp software remmina
+    $1 apt-get install unzip -y
+    # install GPG
+    $1 apt-get install gnupg2 -y
+    # install NMap and ZMap
+    $1 apt-get install nmap zmap -y
+    # install thefuck
+    $1 add-apt-repository ppa:ubuntu-lxc/lxd-stable
+    $1 apt-get update
+    $1 apt-get dist-upgrade -y
+    $1 apt-get install lxd -y
+    # install Docker
+    $1 apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-xenial main'
+    $1 apt-get update
+    $1 apt-get install docker.io -y
+    # add the user to the new groups docker and lxd
+    if [ $(whoami) != "root" ]; then
+        usermod -aG docker $(whoami)
+        usermod -aG lxd $(whoami)
+    fi
+}
+
+function other_apps ()
+{
+    # copy .bashrc base
     cp .bashrc ~/.bashrc
     source ~/.bashrc
-	# install I3 + Wallpapers
+    # install I3 + Wallpapers
     $1 apt-get install i3 -y
     cp -r .i3 ~/
     $1 cp ./etc/i3status.conf /etc/i3status.conf
     $1 cp ./reboot.sh ~/
     $1 cp ./shutdown.sh ~/
     $1 cp -r Wallpapers ~/
-	# install graphical control software
-	$1 apt-get install xbacklight feh arandr shutter -y 
-	# install networking and sysadmin tools
-    $1 apt-get install bmon tcptrack slurm minicom glances lnav iotop htop -y
-	# install rdp software remmina
-	$1 apt-get install remmina -y
-	# install unzip
-	$1 apt-get install unzip -y
-	# install keepass2
-	$1 add-apt-repository ppa:eugenesan/ppa
-	$1 apt-get update
-	$1 apt-get install keepass2 -y
-	# install GPG
-	$1 apt-get install gnupg2 -y
-	# install NMap and ZMap
-	$1 apt-get install nmap zmap -y
-	# install thefuck
+    # install graphical control software
+    $1 apt-get install xbacklight feh arandr shutter -y 
+    # install rdp software remmina
+    $1 apt-get install remmina -y
+    # install keepass2
+    $1 add-apt-repository ppa:eugenesan/ppa
+    $1 apt-get update
+    $1 apt-get install keepass2 -y
+    # install thefuck
     $1 apt-get install python3-dev python3-pip python-pkg-resources -y
     $1 apt-get install python-pip -y
     $1 pip install --upgrade pip
     $1 pip install thefuck
-    # install fun applications for the terminal
-    $1 apt-get install cmatrix sl lolcat ddate cowsay fortune-mod -y
     # install spotify
     $1 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886
     $1 echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
     $1 apt-get update
     $1 apt-get install spotify-client -y
     # install other browsers
-    $1 apt-get install chromium-browser google-chrome-stable -y
-	# install vlc
-	$1 apt-get install vlc -y 
-	# install LXD latest upstream
-	$1 add-apt-repository ppa:ubuntu-lxc/lxd-stable
-	$1 apt-get update
-	$1 apt-get dist-upgrade -y
-	$1 apt-get install lxd -y
-	# install Docker
-	$1 apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-xenial main'
-	$1 apt-get update
-	$1 apt-get install docker.io -y
-	# add the user to the new groups docker and lxd
-	if [ $(whoami) != "root" ]; then
-		usermod -aG docker $(whoami)
-		usermod -aG lxd $(whoami)
-	fi
+    $1 apt-get install chromium-browser -y
+    # install vlc
+    $1 apt-get install vlc -y 
 }
 
 function all_apps_up ()
 {
     os_update "$1"
-	base_cfg "$1"
-	all_apps "$1"
+    base_cfg "$1"
+    work_apps "$1"
+    other_apps "$1"
 }
 
 function all_apps_noup ()
 {
-	base_cfg "$1"
-	all_apps "$1"
+    base_cfg "$1"
+    work_apps "$1"
+    other_apps "$1"
 }
 
 #Call to the main function
