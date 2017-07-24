@@ -1,8 +1,8 @@
 #!/bin/bash                                                                                                                                     
 # Script: Linux Configuration File                                             
 # Description: LCF is a simple script to personalize your Linux distro as H4M1O.
-# Version: 3.2.4                                                                 
-# Date: 20-07-2017                                                               
+# Version: 3.2.5                                                                 
+# Date: 24-07-2017                                                               
 # Author: Claudio Proietti                                                       
 # License: The MIT License (MIT) - Copyright (c) 2017 Claudio Proietti
 
@@ -158,6 +158,8 @@ function other_apps ()
     $1 cp ./reboot.sh ~/
     $1 cp ./shutdown.sh ~/
     $1 cp -r Wallpapers ~/
+    # install software to show the fancy dragon when opening the terminal
+    $1 apt-get install cmatrix cowsay fortune lolcat -y
     # install graphical control software
     $1 apt-get install xbacklight feh arandr shutter -y 
     # install rdp software remmina
