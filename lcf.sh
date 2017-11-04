@@ -1,7 +1,7 @@
 #!/bin/bash                                                                                                                                     
 # Script: Linux Configuration File                                             
 # Description: LCF is a simple script to personalize your Linux distro as H4M1O.
-# Version: 3.3.3                                                               
+# Version: 3.3.4                                                               
 # Date: 4-11-2017                                                               
 # Author: Claudio Proietti                                                       
 # License: The MIT License (MIT) - Copyright (c) 2017 Claudio Proietti
@@ -126,7 +126,7 @@ function work_apps ()
     # install NMap and ZMap
     $1 apt-get install nmap zmap -y
     # install thefuck
-    $1 add-apt-repository ppa:ubuntu-lxc/lxd-stable
+    $1 add-apt-repository ppa:ubuntu-lxc/lxd-stable -y
     $1 apt-get update
     $1 apt-get dist-upgrade -y
     $1 apt-get install lxd -y
@@ -162,7 +162,7 @@ function other_apps ()
     # install rdp software remmina
     $1 apt-get install remmina -y
     # install keepass2
-    $1 add-apt-repository ppa:eugenesan/ppa
+    $1 add-apt-repository ppa:eugenesan/ppa -y
     $1 apt-get update
     $1 apt-get install keepass2 -y
     # install spotify
