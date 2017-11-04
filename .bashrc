@@ -58,7 +58,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # MOTD every terminal opened
-if [ $(hostname) != "root" ]; then                                        
+if [ $(whoami) != "root" ]; then                                        
     cmatrix -abs -C red; (echo -e "H4M1O IS WATCHING YOU...\n"; fortune -s; echo; date +"%A %d %B %Y - %T") | cowsay -f dragon | lolcat
 fi
 
