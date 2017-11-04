@@ -1,8 +1,8 @@
 #!/bin/bash                                                                                                                                     
 # Script: Linux Configuration File                                             
 # Description: LCF is a simple script to personalize your Linux distro as H4M1O.
-# Version: 3.2.5                                                                 
-# Date: 24-07-2017                                                               
+# Version: 3.3.0                                                               
+# Date: 4-11-2017                                                               
 # Author: Claudio Proietti                                                       
 # License: The MIT License (MIT) - Copyright (c) 2017 Claudio Proietti
 
@@ -43,18 +43,14 @@ function main ()
                 echo -e "$(tput setaf 0)$(tput setab 2)\nWORK TOOLS INSTALLATION AND CONFIGURATION (NMAP, HTOP, LNAV...)$(tput sgr 0)\n"                
                 ;;
                 4 )
-                desk_apps_up $SU
-                echo -e "$(tput setaf 0)$(tput setab 2)\nDESKTOP TOOLS INSTALLATION AND CONFIGURATION (BASHRC, VIMRC, TOP, TMUX)$(tput sgr 0)\n"                
+                other_apps $SU
+                echo -e "$(tput setaf 0)$(tput setab 2)\nDESKTOP TOOLS INSTALLATION AND CONFIGURATION (I3, SPOTIFY, CHROMIUM...)$(tput sgr 0)\n"                
                 ;;
                 5 )
-                other_apps $SU                                                   
-                echo -e "$(tput setaf 0)$(tput setab 2)\nINSTALL AND CONFIGURE ALL THE OTHER  APPLICATION (I3, NMAP, SPOTIFY...)$(tput sgr 0)\n"
-                ;;                 
-                6 )
                 all_apps_up $SU
                 echo -e "$(tput setaf 0)$(tput setab 2)\nINSTALLATION AND CONFIGURATION OF ALL THE APPS WITH OS UPDATE COMPLETED!$(tput sgr 0)\n"                
                 ;;
-                7 )
+                6 )
                 all_apps_noup $SU                                                   
                 echo -e "$(tput setaf 0)$(tput setab 2)\nINSTALLATION AND CONFIGURATION OF ALL THE APPS WITHOUT OS UPDATE COMPLETED!$(tput sgr 0)\n"
                 ;;                 
@@ -80,10 +76,9 @@ function menu ()
     echo "1 - UPDATE AND UPGRADE THE SYSTEM"       
     echo "2 - BASIC INSTALLATION AND CONFIGURATION (BASHRC, VIMRC, TOP, TMUX)"
     echo "3 - WORK TOOLS INSTALLATION AND CONFIGURATION (NMAP, HTOP, LNAV...)"
-    echo "4 - DESKTOP TOOLS INSTALLATION AND CONFIGURATION (BASHRC, VIMRC, TOP, TMUX)"
-    echo "5 - INSTALL AND CONFIGURE ALL THE OTHER  APPLICATION (I3, NMAP, SPOTIFY...)" 
-    echo "6 - INSTALL AND CONFIGURE ALL THE APPS WITH OS UPDATE"
-    echo "7 - INSTALL AND CONFIGURE ALL THE APPS WITHOUT OS UPDATE"
+    echo "4 - DESKTOP TOOLS INSTALLATION AND CONFIGURATION (I3, SPOTIFY, CHROMIUM...)"
+    echo "5 - INSTALL AND CONFIGURE ALL THE APPS WITH OS UPDATE"
+    echo "6 - INSTALL AND CONFIGURE ALL THE APPS WITHOUT OS UPDATE"
     echo -e "\n0 - Exit the script\n"                                            
     echo "$(tput setaf 3)Write now the option that you want select and press enter: $(tput sgr 0)"  
 }      
@@ -144,6 +139,11 @@ function work_apps ()
         usermod -aG docker $(whoami)
         usermod -aG lxd $(whoami)
     fi
+    $1 apt-get install python3-dev python3-pip python-pkg-resources -y
+    $1 apt-get install python-pip -y
+    $1 pip install --upgrade pip
+	$1 apt-get install virtualenv
+	$1 apt-get install idle3
 }
 
 function other_apps ()
@@ -168,11 +168,6 @@ function other_apps ()
     $1 add-apt-repository ppa:eugenesan/ppa
     $1 apt-get update
     $1 apt-get install keepass2 -y
-    # install thefuck
-    $1 apt-get install python3-dev python3-pip python-pkg-resources -y
-    $1 apt-get install python-pip -y
-    $1 pip install --upgrade pip
-    $1 pip install thefuck
     # install spotify
     $1 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886
     $1 echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list

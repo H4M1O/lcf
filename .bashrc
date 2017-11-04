@@ -5,7 +5,7 @@
 # enable only in case I am using a secondary file for aliases
 # source ./.sec_alias
 
-# enable smart completion
+# enable smart auto-completion
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
@@ -62,21 +62,8 @@ if [ $(hostname) != "root" ]; then
     cmatrix -abs -C red; (echo -e "H4M1O IS WATCHING YOU...\n"; fortune -s; echo; date +"%A %d %B %Y - %T") | cowsay -f dragon | lolcat
 fi
 
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
 # call alias with a
 alias a='alias'
-
-# enable audio
-alias a+='amixer set Master 100 unmute; amixer set Headphone 100 unmute; amixer set PCM 100 unmute; amixer set Front 100 unmute; amixer set Speaker 100 unmute;'
-
-# disable audio
-alias a-='amixer set Master 0 mute; amixer set Headphone 0 mute; amixer set PCM 0 mute; amixer set Front 0 mute; amixer set Speaker 0 mute'
-
-# modify the volume by passing the value after the command
-alias avol='amixer set PCM'
 
 # clear the screen
 alias c='clear'
@@ -103,9 +90,6 @@ alias e="exit"
 # call df for disk space
 alias f="df -h"
 
-# call for thefuck
-eval $(thefuck --alias fk)
-
 # return to home quickly
 alias h='cd ~/'
 
@@ -116,9 +100,6 @@ alias l='less -R'
 alias ls='ls --color=auto'
 alias ll='ls -lah --color=auto --group-directories-first'
 alias la='ls -A'
-
-# inserted lk to lock the screen with i3lock
-alias lk='i3lock -b -d -c 000000 -n'
 
 # call SSH agent, add a key and call ssh
 alias k='killall ssh-agent || eval "$(ssh-agent)" && ssh-add'
