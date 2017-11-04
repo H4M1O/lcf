@@ -1,7 +1,7 @@
 #!/bin/bash                                                                                                                                     
 # Script: Linux Configuration File                                             
 # Description: LCF is a simple script to personalize your Linux distro as H4M1O.
-# Version: 3.3.1                                                               
+# Version: 3.3.2                                                               
 # Date: 4-11-2017                                                               
 # Author: Claudio Proietti                                                       
 # License: The MIT License (MIT) - Copyright (c) 2017 Claudio Proietti
@@ -142,8 +142,8 @@ function work_apps ()
     $1 apt-get install python3-dev python3-pip python-pkg-resources -y
     $1 apt-get install python-pip -y
     $1 pip install --upgrade pip
-	$1 apt-get install virtualenv
-	$1 apt-get install idle3
+	$1 apt-get install virtualenv -y
+	$1 apt-get install idle3 -y
 }
 
 function other_apps ()
