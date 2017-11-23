@@ -90,6 +90,15 @@ alias e="exit"
 # call df for disk space
 alias f="df -h"
 
+# short commands for GIT
+alias ga='git add '
+alias gb='git branch '
+alias gc='git commit'
+alias gd='git diff'
+alias go='git checkout '
+alias gs='git status '
+alias gt='git tag '
+
 # return to home quickly
 alias h='cd ~/'
 

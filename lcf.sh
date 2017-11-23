@@ -1,8 +1,8 @@
 #!/bin/bash                                                                                                                                     
 # Script: Linux Configuration File                                             
 # Description: LCF is a simple script to personalize your Linux distro as H4M1O.
-# Version: 3.3.4                                                               
-# Date: 4-11-2017                                                               
+# Version: 3.3.5                                                               
+# Date: 23-11-2017                                                               
 # Author: Claudio Proietti                                                       
 # License: The MIT License (MIT) - Copyright (c) 2017 Claudio Proietti
 
@@ -113,6 +113,9 @@ function base_cfg ()
     $1 apt-get install tmux -y
     $1 apt-get install highlight -y
     cp .tmux.conf ~/
+	$1 add-apt-repository ppa:apt-fast/stable -y
+	$1 apt-get update
+	$1 apt-get install apt-fast -y 
 }
 
 function work_apps ()
