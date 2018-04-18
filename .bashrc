@@ -2,8 +2,8 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-# enable only in case I am using a secondary file for aliases
-# source ./.sec_alias
+# enable to use a secondary file for private content
+source ~/.sec_alias
 
 # enable smart auto-completion
 if [ -f /etc/bash_completion ]; then
@@ -15,6 +15,9 @@ export PATH=$PATH:/usr/games/:./
 
 # enable colored terminal
 export TERM=xterm-256color
+
+# import the SSH_AUTH_SOCK
+SSH_AUTH_SOCK=`find /tmp/ -type s -name agent.\* 2> /dev/null | grep '/tmp/ssh-.*/agent.*'`
 
 # export the configuration on every shell
 shopt -s expand_aliases
@@ -47,6 +50,16 @@ else
     PS1='${debian_chroot:+($debian_chroot)}\[\033[00m\]\A\[\033[00m\]-\[\033[01;31m\]\u\[\033[00m\]@\[\033[01;33m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$ '
 fi
 
+new_ssh_agent()
+{
+	if [ -z $SSH_AUTH_SOCK ]
+	then
+		eval $(ssh-agent) > /dev/null && ssh-add $1
+	else
+		ssh-add $1
+	fi
+}
+
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -57,19 +70,11 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# MOTD every terminal opened
-if [ $(whoami) != "root" ]; then                                        
-    cmatrix -abs -C red; (echo -e "H4M1O IS WATCHING YOU...\n"; fortune -s; echo; date +"%A %d %B %Y - %T") | cowsay -f dragon | lolcat
-fi
-
 # call alias with a
 alias a='alias'
 
 # clear the screen
-alias c='clear'
-
-#clear the screen and restart dragon
-alias cc='clear; (echo -e "H4M1O IS WATCHING YOU...\n"; fortune -s; echo; date +"%A %d %B %Y - %T") | cowsay -f dragon | lolcat'
+alias c='source ~/.bashrc && clear'
 
 #call cd shortcuts 
 alias c.='cd ..'
@@ -82,28 +87,23 @@ alias c.....='cd ../../../../..'
 cats() { highlight -O xterm256 -s molokai -l $1 | less -R; }
 
 # call du for directory space
-alias d="du -sh"
+alias d='du -sh'
 
 # call exit
-alias e="exit"
+alias e='exit'
 
 # call df for disk space
-alias f="df -h"
+alias f='df -h'
 
 # short commands for GIT
 alias ga='git add '
 alias gb='git branch '
-alias gc='git commit'
+alias gc='git commit -m '
 alias gd='git diff'
 alias go='git checkout '
 alias gs='git status '
+alias gh='git stash'
 alias gt='git tag '
-
-# return to home quickly
-alias h='cd ~/'
-
-# less in color
-alias l='less -R'
 
 #alias ll='ls -alF'
 alias ls='ls --color=auto'
@@ -111,31 +111,31 @@ alias ll='ls -lah --color=auto --group-directories-first'
 alias la='ls -A'
 
 # call SSH agent, add a key and call ssh
-alias k='killall ssh-agent || eval "$(ssh-agent)" && ssh-add'
+alias k=new_ssh_agent
 
 # add another SSH key`
 alias ka='ssh-add'
+
+# kill the ssh agent
+alias kk='sudo killall ssh-agent && source ~/.bashrc && clear'
 
 # show the list of the SSH keys loaded
 alias kl='ssh-add -l'
 
 # push the .bashrc over ssh in .cpbashrc
-alias s="ssh"
+alias s='ssh'
 
 # enable alias on sudo
 alias sudo='sudo '
 
 # call tmux
-alias t="tmux"
+alias t='tmux'
 
 # call top
-alias tt="top"
+alias tt='top'
 
 # call VIM
-alias v="vim"
+alias v='vim'
 
 # call watch and enable the use of alias with it
-alias wa="watch "
-
-# call the weather page and show it the terminal
-alias we="curl wttr.in/london"
+alias wa='watch '

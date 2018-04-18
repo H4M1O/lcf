@@ -1,8 +1,8 @@
 #!/bin/bash                                                                                                                                     
 # Script: Linux Configuration File                                             
 # Description: LCF is a simple script to personalize your Linux distro as H4M1O.
-# Version: 3.3.5                                                               
-# Date: 23-11-2017                                                               
+# Version: 3.4.5                                                               
+# Date: 18-04-2018                                                               
 # Author: Claudio Proietti                                                       
 # License: The MIT License (MIT) - Copyright (c) 2017 Claudio Proietti
 
@@ -48,9 +48,13 @@ function main ()
                 ;;
                 5 )
                 all_apps_up $SU
-                echo -e "$(tput setaf 0)$(tput setab 2)\nINSTALLATION AND CONFIGURATION OF ALL THE APPS WITH OS UPDATE COMPLETED!$(tput sgr 0)\n"                
+                echo -e "$(tput setaf 0)$(tput setab 2)\nINSTALLATION AND CONFIGURATION OF THE HYPERVISORS COMPLETED!$(tput sgr 0)\n"                
                 ;;
                 6 )
+                all_apps_up $SU
+                echo -e "$(tput setaf 0)$(tput setab 2)\nINSTALLATION AND CONFIGURATION OF ALL THE APPS WITH OS UPDATE COMPLETED!$(tput sgr 0)\n"                
+                ;;
+                7 )
                 all_apps_noup $SU                                                   
                 echo -e "$(tput setaf 0)$(tput setab 2)\nINSTALLATION AND CONFIGURATION OF ALL THE APPS WITHOUT OS UPDATE COMPLETED!$(tput sgr 0)\n"
                 ;;                 
@@ -77,8 +81,9 @@ function menu ()
     echo "2 - BASIC INSTALLATION AND CONFIGURATION (BASHRC, VIMRC, TOP, TMUX)"
     echo "3 - WORK TOOLS INSTALLATION AND CONFIGURATION (NMAP, HTOP, LNAV...)"
     echo "4 - DESKTOP TOOLS INSTALLATION AND CONFIGURATION (I3, SPOTIFY, CHROMIUM...)"
-    echo "5 - INSTALL AND CONFIGURE ALL THE APPS WITH OS UPDATE"
-    echo "6 - INSTALL AND CONFIGURE ALL THE APPS WITHOUT OS UPDATE"
+    echo "5 - HYPERVISORS (LXD, DOCKER...)"
+    echo "6 - INSTALL AND CONFIGURE ALL THE APPS WITH OS UPDATE"
+    echo "7 - INSTALL AND CONFIGURE ALL THE APPS WITHOUT OS UPDATE"
     echo -e "\n0 - Exit the script\n"                                            
     echo "$(tput setaf 3)Write now the option that you want select and press enter: $(tput sgr 0)"  
 }      
@@ -128,20 +133,6 @@ function work_apps ()
     $1 apt-get install gnupg2 -y
     # install NMap and ZMap
     $1 apt-get install nmap zmap -y
-    # install thefuck
-    $1 add-apt-repository ppa:ubuntu-lxc/lxd-stable -y
-    $1 apt-get update
-    $1 apt-get dist-upgrade -y
-    $1 apt-get install lxd -y
-    # install Docker
-    $1 apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-xenial main'
-    $1 apt-get update
-    $1 apt-get install docker.io -y
-    # add the user to the new groups docker and lxd
-    if [ $(whoami) != "root" ]; then
-        usermod -aG docker $(whoami)
-        usermod -aG lxd $(whoami)
-    fi
     $1 apt-get install python3-dev python3-pip python-pkg-resources -y
     $1 apt-get install python-pip -y
     $1 pip install --upgrade pip
@@ -151,12 +142,6 @@ function work_apps ()
 
 function other_apps ()
 {
-    # install I3 + Wallpapers
-    $1 apt-get install i3 -y
-    cp -r .i3 ~/
-    $1 cp ./etc/i3status.conf /etc/i3status.conf
-    $1 cp ./reboot.sh ~/
-    $1 cp ./shutdown.sh ~/
     $1 cp -r Wallpapers ~/
     # install software to show the fancy dragon when opening the terminal
     $1 apt-get install cmatrix cowsay fortune lolcat -y
@@ -179,12 +164,31 @@ function other_apps ()
     $1 apt-get install vlc -y 
 }
 
+function hypervisors ()
+{
+    # install lxd and docker
+    $1 add-apt-repository ppa:ubuntu-lxc/lxd-stable -y
+    $1 apt-get update
+    $1 apt-get dist-upgrade -y
+    $1 apt-get install lxd -y
+    # install Docker
+    $1 apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-xenial main'
+    $1 apt-get update
+    $1 apt-get install docker.io -y
+    # add the user to the new groups docker and lxd
+    if [ $(whoami) != "root" ]; then
+        usermod -aG docker $(whoami)
+        usermod -aG lxd $(whoami)
+    fi
+}
+
 function all_apps_up ()
 {
     os_update "$1"
     base_cfg "$1"
     work_apps "$1"
     other_apps "$1"
+	hypervisors "$1"
 }
 
 function all_apps_noup ()
@@ -192,6 +196,7 @@ function all_apps_noup ()
     base_cfg "$1"
     work_apps "$1"
     other_apps "$1"
+	hypervisors "$1"
 }
 
 #Call to the main function
