@@ -1,1 +1,61 @@
 #!/bin/bash
+
+new_ssh_agent()
+{
+        if [ -z $SSH_AUTH_SOCK ]
+        then
+                eval $(ssh-agent) > /dev/null && ssh-add $1
+        else
+                ssh-add $1
+        fi
+}
+
+# call alias with a
+alias a='alias'
+
+# clear the screen
+alias c='clear'
+
+# clear the screen
+alias rc='source ~/.p10k.zsh && clear'
+
+# call du for directory space
+alias d='du -sh'
+
+# call exit
+alias e='exit'
+
+# call df for disk space
+alias f='df -h'
+
+# call SSH agent, add a key and call ssh
+alias k=new_ssh_agent
+
+# add another SSH key`
+alias ka='ssh-add'
+
+# kill the ssh agent
+alias kk='sudo killall ssh-agent && source ~/.bashrc && clear'
+
+# show the list of the SSH keys loaded
+alias kal='ssh-add -l'
+
+# push the .bashrc over ssh in .cpbashrc
+alias s='ssh'
+
+# enable alias on sudo
+alias sudo='sudo '
+
+# call tmux
+alias t='tmux'
+
+# call top
+alias tt='top'
+
+# call VIM
+alias v='vim'
+
+# call watch and enable the use of alias with it
+alias wa='watch '
+
+alias zen='source ~/.p10k_pure.zsh'
